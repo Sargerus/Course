@@ -1,0 +1,14 @@
+﻿<Window x:Class="Course.TeachersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TeachersWindow" 
+        WindowStartupLocation="CenterScreen"
+        
+        Padding="250,250,250,250">
+    <Window.Background>
+        <ImageBrush ImageSource="e:\4 семестр\c#\SecondCursach\teachers.jpg" Stretch="UniformToFill" TileMode="None" />
+    </Window.Background>
+    <Grid>
+        <DataGrid  ItemsSource = "{Binding teachers}"  HorizontalAlignment="Left"  VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="14"/>
+    </Grid>
+</Window>
