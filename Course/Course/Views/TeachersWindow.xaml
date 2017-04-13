@@ -6,7 +6,7 @@
         
         Padding="250,250,250,250">
     <Window.Background>
-        <ImageBrush ImageSource="e:\4 семестр\c#\SecondCursach\teachers.jpg" Stretch="UniformToFill" TileMode="None" />
+        <ImageBrush ImageSource="e:\4 семестр\c#\Курсовой проект\teachers.jpg" Stretch="UniformToFill" TileMode="None" />
     </Window.Background>
     <Grid>
         <DataGrid  ItemsSource = "{Binding teachers}"  HorizontalAlignment="Left"  VerticalAlignment="Top" FontFamily="Times New Roman" FontSize="14"/>

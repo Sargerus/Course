@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="StudentMain"  Padding="250,250,250,250">
     <Window.Background>
-        <ImageBrush ImageSource="e:\4 семестр\c#\SecondCursach\students.jpg" Stretch="UniformToFill" TileMode="None" />
+        <ImageBrush ImageSource="e:\4 семестр\c#\Курсовой проект\students.jpg" Stretch="UniformToFill" TileMode="None" />
     </Window.Background>
 
 
