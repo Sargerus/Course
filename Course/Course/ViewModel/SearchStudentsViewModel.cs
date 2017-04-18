@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Course.Model
+namespace Course.ViewModel
 {
-    public class BaseConneciton 
+    public class SearchStudentsViewModel : ViewModelBase
     {
-        private string ConnectString;
-
-       
     }
 }

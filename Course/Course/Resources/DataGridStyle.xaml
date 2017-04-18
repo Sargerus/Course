@@ -6,5 +6,12 @@
         <Setter Property="RowBackground" Value="#B3B3B3"></Setter>
         <Setter Property="FontSize" Value="16"></Setter>
         <Setter Property="FontFamily" Value="Calibri"></Setter>
+        <Setter Property="ColumnWidth" Value="*"></Setter>
+        <Setter Property="AutoGenerateColumns" Value="True"></Setter>    
+        <Setter Property="CanUserAddRows" Value="False"></Setter>
+        <Setter Property="CanUserDeleteRows" Value="False"></Setter>
+        <Setter Property="CanUserResizeColumns" Value="False"></Setter>
+        <Setter Property="CanUserResizeRows" Value="False"></Setter>
+        <Setter Property="CanUserSortColumns" Value="False"></Setter>
     </Style>
 </ResourceDictionary>

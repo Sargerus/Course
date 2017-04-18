@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Course.Model;
 using Course.Views;
+using Microsoft.Win32;
 
 namespace Course.ViewModel
 {
@@ -34,6 +35,16 @@ namespace Course.ViewModel
                 Группа = group;
                 Подгруппа = subgroup;
             }
+            public override string ToString()
+            {
+                return "Номер студенческого билета: " + Номер_студенческого_билета.ToString() + " " +
+                       "Фамилия: " + Фамилия.ToString() + " " +
+                       "Факультет: " + Факультет.ToString() + " " + 
+                       "Специальность: " + Специальность.ToString() + " " + 
+                       "Курс: " + Курс.ToString() + " " + 
+                       "Группа: " + Группа.ToString() + " " + 
+                       "Подгруппа: " + Подгруппа.ToString();
+            }
             
         }
 
@@ -41,27 +52,67 @@ namespace Course.ViewModel
         public List<Student> student { get; set; }
         public GeneralCommand ShowTeachersCommand { get; set; }
         public GeneralCommand ShowPerfomanceCommand { get; set; }
+        public GeneralCommand SaveCommand { get; set; }
+        public GeneralCommand SearchStudentsCommand { get; set; }
         public StudentWindowViewModel()
         {
             
             ShowTeachersCommand = new GeneralCommand(ShowTeachers, null);
             ShowPerfomanceCommand = new GeneralCommand(ShowPerfomance, null);
+            SaveCommand = new GeneralCommand(Save, null);
+            SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
             ShowTable();
             
         }
 
+        public void Save()
+        {
+            try
+            {
+                SaveFileDialog savefiledialog = new SaveFileDialog();
+                savefiledialog.FileName = "*.txt";
+                savefiledialog.Filter = "TXT File|*.txt";
+                savefiledialog.Title = "Saving result";
+                savefiledialog.ShowDialog();
 
+                if (System.IO.File.Exists(savefiledialog.FileName))
+                    System.IO.File.Delete(savefiledialog.FileName);
+
+                if (savefiledialog.FileName != "")
+                {
+                    for (int g = 0; g < student.Count; g++)
+                    {
+                        System.IO.File.AppendAllText(savefiledialog.FileName, student[g].ToString());
+                        System.IO.File.AppendAllText(savefiledialog.FileName, "\r\n");
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+                    }
+
+        public void SearchStudents()
+        {
+            var NewWindow = new SearchStudentsWindow();
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
+        }
         public void ShowTeachers()
         {
             var NewWindow = new TeachersWindow();
             NewWindow.Show();
             Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
         }
         public void ShowPerfomance()
         {
             var NewWindow = new PerfomanceWindow();
             NewWindow.Show();
             Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
         }
 
 

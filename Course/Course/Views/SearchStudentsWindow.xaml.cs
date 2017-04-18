@@ -16,13 +16,13 @@ using System.Windows.Shapes;
 namespace Course.Views
 {
     /// <summary>
-    /// Логика взаимодействия для PerfomanceWindow.xaml
+    /// Логика взаимодействия для SearchStudentsWindow.xaml
     /// </summary>
-    public partial class PerfomanceWindow : Window
+    public partial class SearchStudentsWindow : Window
     {
-        public PerfomanceWindow()
+        public SearchStudentsWindow()
         {
-            DataContext = new PerfomanceViewModel();
+            DataContext = new SearchStudentsViewModel();
             InitializeComponent();
         }
     }

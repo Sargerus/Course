@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>iconnew.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
@@ -103,11 +106,16 @@
     <Compile Include="ViewModel\GeneralCommand.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PerfomanceViewModel.cs" />
+    <Compile Include="ViewModel\SearchStudentsViewModel.cs" />
+    <Compile Include="ViewModel\Slider.cs" />
     <Compile Include="ViewModel\StudentWindowViewModel.cs" />
     <Compile Include="ViewModel\TeacherWindowViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="Views\PerfomanceWindow.xaml.cs">
       <DependentUpon>PerfomanceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SearchStudentsWindow.xaml.cs">
+      <DependentUpon>SearchStudentsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StudentMain.xaml.cs">
       <DependentUpon>StudentMain.xaml</DependentUpon>
@@ -150,6 +158,10 @@
     <Page Include="Views\PerfomanceWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SearchStudentsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\StudentMain.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -197,6 +209,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="iconnew.ico" />
     <Content Include="Model\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>

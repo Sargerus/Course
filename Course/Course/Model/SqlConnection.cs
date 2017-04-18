@@ -23,5 +23,10 @@ namespace Course.Model
             IQueryable<Преподаватели> retVal = from g in this.DBase.Преподаватели select g;
             return retVal;
         }
+        public IQueryable<УСПЕВАЕМОСТЬ> GetPerfomance()
+        {
+            IQueryable<УСПЕВАЕМОСТЬ> retVal = from g in this.DBase.УСПЕВАЕМОСТЬ select g;
+            return retVal;
+        }
     }
 }

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Course.Model;
+using System.Windows;
+using Course.Views;
 
 namespace Course.ViewModel
 {
@@ -35,12 +37,30 @@ namespace Course.ViewModel
 
         public List<Преподаватели> s { get; set; }
         public List<Teachers> teachers { get; set; }
+        public GeneralCommand ShowStudentCommand { get; set; }
+        public GeneralCommand ShowPerfomanceCommand { get; set; }
 
         public TeacherWindowViewModel()
         {
-
+            ShowStudentCommand = new GeneralCommand(ShowStudents, null);
+            ShowPerfomanceCommand = new GeneralCommand(ShowPerfomance, null);
             ShowTable();
 
+        }
+        public void ShowStudents()
+        {
+            var NewWindow = new StudentMain();
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
+
+        }
+        public void ShowPerfomance()
+        {
+            var NewWindow = new PerfomanceWindow();
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
         }
         private void ShowTable()
         {
