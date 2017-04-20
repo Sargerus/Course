@@ -4,6 +4,10 @@
         Title="PerfomanceWindow"  WindowStartupLocation="CenterScreen"
         
         Padding="250,250,250,250">
+
+    <Window.Background>
+        <ImageBrush ImageSource="e:\4 семестр\c#\Курсовой проект\perfomance.jpg" Stretch="UniformToFill" TileMode="None" />
+    </Window.Background>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"></RowDefinition>
@@ -22,9 +26,9 @@
 
         </Menu>
 
-        <Button  Content="{DynamicResource m_Teachers}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="50" Command="{Binding ShowTeachersCommand}" Grid.Row="1" Margin="0,10,0,0" />
-        <Button  Content="{DynamicResource m_Students}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="50" Command="{Binding ShowStudentCommand}" Grid.Row="1" Margin="0,65,0,0" />
+        <Button  Content="{DynamicResource m_Teachers}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="50" Command="{Binding ShowTeachersCommand}" Grid.Row="1" Margin="10,10,0,0" />
+        <Button  Content="{DynamicResource m_Students}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="50" Command="{Binding ShowStudentCommand}" Grid.Row="1" Margin="10,65,0,0" />
 
-        <DataGrid ItemsSource = "{Binding Perfomance}" Margin="165,10,10,243" Grid.Row="1"/>
+        <DataGrid AutoGenerateColumns="True" ItemsSource="{Binding Perfomance}" HorizontalAlignment="Left" Margin="236,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="Auto" Width="Auto"/>
     </Grid>
 </Window>

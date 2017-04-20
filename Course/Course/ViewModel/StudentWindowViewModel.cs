@@ -54,6 +54,7 @@ namespace Course.ViewModel
         public GeneralCommand ShowPerfomanceCommand { get; set; }
         public GeneralCommand SaveCommand { get; set; }
         public GeneralCommand SearchStudentsCommand { get; set; }
+        public GeneralCommand SearchTeachersCommand { get; set; }
         public StudentWindowViewModel()
         {
             
@@ -61,6 +62,7 @@ namespace Course.ViewModel
             ShowPerfomanceCommand = new GeneralCommand(ShowPerfomance, null);
             SaveCommand = new GeneralCommand(Save, null);
             SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
+            SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
             ShowTable();
             
         }
@@ -96,6 +98,14 @@ namespace Course.ViewModel
         public void SearchStudents()
         {
             var NewWindow = new SearchStudentsWindow();
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
+        }
+
+        public void SearchTeacher()
+        {
+            var NewWindow = new SearchTeachers();
             NewWindow.Show();
             Application.Current.MainWindow.Close();
             Application.Current.MainWindow = NewWindow;

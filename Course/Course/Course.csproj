@@ -106,8 +106,9 @@
     <Compile Include="ViewModel\GeneralCommand.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PerfomanceViewModel.cs" />
+    <Compile Include="ViewModel\RadioBoolToIntConverter.cs" />
     <Compile Include="ViewModel\SearchStudentsViewModel.cs" />
-    <Compile Include="ViewModel\Slider.cs" />
+    <Compile Include="ViewModel\SearchTeachersViewModel.cs" />
     <Compile Include="ViewModel\StudentWindowViewModel.cs" />
     <Compile Include="ViewModel\TeacherWindowViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
@@ -116,6 +117,9 @@
     </Compile>
     <Compile Include="Views\SearchStudentsWindow.xaml.cs">
       <DependentUpon>SearchStudentsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SearchTeachersWindow.xaml.cs">
+      <DependentUpon>SearchTeachersWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StudentMain.xaml.cs">
       <DependentUpon>StudentMain.xaml</DependentUpon>
@@ -155,6 +159,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\ListBoxItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\TextBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -164,6 +172,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SearchStudentsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SearchTeachersWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

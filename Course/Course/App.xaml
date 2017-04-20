@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="Resources/ButtonStyle.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Resources/TextBoxStyle.xaml"/>
                 <ResourceDictionary Source="Resources/DataGridStyle.xaml"/>
+                <ResourceDictionary Source="Resources/ListBoxItem.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
