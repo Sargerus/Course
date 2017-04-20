@@ -25,5 +25,7 @@ namespace Course.Views
             DataContext = new SearchStudentsViewModel();
             InitializeComponent();
         }
+
+        
     }
 }

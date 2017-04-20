@@ -143,6 +143,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Resources\lang.en-US.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\lang.ru-RU.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
