@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Course.Model;
 using System.Windows;
 using Course.Views;
+using Microsoft.Win32;
 
 namespace Course.ViewModel
 {
@@ -33,23 +34,93 @@ namespace Course.ViewModel
                 Кабинет = cabinet;
                 Предметы = subjects;
             }
+
+            public override string ToString()
+            {
+                return " Номер трудовой книжки: " + Номер_трудовой_книжки + "\r\n" +
+                 "Фамилия И О: " + Фамилия_И_О_ + "\r\n" +
+                 "Кафедра: " + Кафедра + "\r\n" +
+                 "Кабинет: " + Кабинет + "\r\n" +
+                 "Предметы: " + Предметы + "\r\n";
+            }
         }
 
         public List<Преподаватели> s { get; set; }
         public List<Teachers> teachers { get; set; }
         public GeneralCommand ShowStudentCommand { get; set; }
         public GeneralCommand ShowPerfomanceCommand { get; set; }
+        public GeneralCommand SaveCommand { get; set; }
+        public GeneralCommand SearchStudentsCommand { get; set; }
+        public GeneralCommand SearchTeachersCommand { get; set; }
 
         public TeacherWindowViewModel()
         {
             ShowStudentCommand = new GeneralCommand(ShowStudents, null);
             ShowPerfomanceCommand = new GeneralCommand(ShowPerfomance, null);
+            SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
+            SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
+            SaveCommand = new GeneralCommand(Save, null);
             ShowTable();
 
+        }
+
+        public void Save()
+        {
+            try
+            {
+                SaveFileDialog savefiledialog = new SaveFileDialog();
+                savefiledialog.FileName = "*.txt";
+                savefiledialog.Filter = "TXT File|*.txt";
+                savefiledialog.Title = "Saving result";
+                savefiledialog.ShowDialog();
+
+                if (System.IO.File.Exists(savefiledialog.FileName))
+                    System.IO.File.Delete(savefiledialog.FileName);
+
+                if (savefiledialog.FileName != "")
+                {
+                    for (int g = 0; g < teachers.Count; g++)
+                    {
+                        System.IO.File.AppendAllText(savefiledialog.FileName, (g + 1).ToString());
+                        System.IO.File.AppendAllText(savefiledialog.FileName, teachers[g].ToString());
+                        System.IO.File.AppendAllText(savefiledialog.FileName, "\r\n");
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        public void SearchStudents()
+        {
+            var NewWindow = new SearchStudentsWindow();
+         
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+         
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
+        }
+        public void SearchTeacher()
+        {
+            var NewWindow = new SearchTeachers();
+         
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+         
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
         }
         public void ShowStudents()
         {
             var NewWindow = new StudentMain();
+         
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+         
             NewWindow.Show();
             Application.Current.MainWindow.Close();
             Application.Current.MainWindow = NewWindow;
@@ -58,6 +129,11 @@ namespace Course.ViewModel
         public void ShowPerfomance()
         {
             var NewWindow = new PerfomanceWindow();
+         
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+         
+            
             NewWindow.Show();
             Application.Current.MainWindow.Close();
             Application.Current.MainWindow = NewWindow;

@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\AccesLevels.cs" />
     <Compile Include="Model\Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -82,10 +83,16 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\SqlConnection.cs" />
+    <Compile Include="Model\sysdiagrams.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\Users.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Отработки.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Оценки.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\Предметы.cs">
@@ -103,6 +110,9 @@
     <Compile Include="Model\Факультеты.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AttestationWindowViewModel.cs" />
+    <Compile Include="ViewModel\EditStudentsViewModel.cs" />
+    <Compile Include="ViewModel\EditTeachersViewModel.cs" />
     <Compile Include="ViewModel\GeneralCommand.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PerfomanceViewModel.cs" />
@@ -112,6 +122,15 @@
     <Compile Include="ViewModel\StudentWindowViewModel.cs" />
     <Compile Include="ViewModel\TeacherWindowViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="Views\AttestationWindow.xaml.cs">
+      <DependentUpon>AttestationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditStudentsWindow.xaml.cs">
+      <DependentUpon>EditStudentsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditTeachersWindow.xaml.cs">
+      <DependentUpon>EditTeachersWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PerfomanceWindow.xaml.cs">
       <DependentUpon>PerfomanceWindow.xaml</DependentUpon>
     </Compile>
@@ -166,6 +185,18 @@
     <Page Include="Resources\TextBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AttestationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditStudentsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditTeachersWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PerfomanceWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

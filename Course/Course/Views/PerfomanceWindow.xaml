@@ -20,8 +20,8 @@
                 <MenuItem Header="{DynamicResource m_SaveAs}"></MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource m_Search}" StaysOpenOnClick="True">
-                <MenuItem Header="{DynamicResource m_Students}"></MenuItem>
-                <MenuItem Header="{DynamicResource m_Teachers}"></MenuItem>
+                <MenuItem  Command="{Binding ShowStudentCommand}" Header="{DynamicResource m_Students}"></MenuItem>
+                <MenuItem Command="{Binding ShowTeachersCommand}" Header="{DynamicResource m_Teachers}"></MenuItem>
             </MenuItem>
 
         </Menu>

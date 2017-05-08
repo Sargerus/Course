@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Course.Model;
 using System.Windows;
+using Course.Views;
 
 namespace Course.ViewModel
 {
@@ -12,6 +13,7 @@ namespace Course.ViewModel
     {
         public GeneralCommand ShowStudentCommand { get; set; }
         public GeneralCommand ShowTeachersCommand { get; set; }
+  
         public List<BufferedPerfomance> Perfomance { get; set; }
         private List<УСПЕВАЕМОСТЬ> Buffer { get; set; }
         public class BufferedPerfomance
@@ -42,14 +44,22 @@ namespace Course.ViewModel
         }
         public void ShowTeachers()
         {
-            var NewWindow = new TeachersWindow();
+            var NewWindow = new SearchTeachers();
+         
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+         
             NewWindow.Show();
             Application.Current.MainWindow.Close();
             Application.Current.MainWindow = NewWindow;
         }
         public void ShowStudents()
         {
-            var NewWindow = new StudentMain();
+            var NewWindow = new SearchStudentsWindow();
+         
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+         
             NewWindow.Show();
             Application.Current.MainWindow.Close();
             Application.Current.MainWindow = NewWindow;

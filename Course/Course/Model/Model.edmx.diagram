@@ -18,6 +18,9 @@
         <AssociationConnector Association="Model.FK_Преподаватели_Предметы" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__Студенты__Факуль__6754599E" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_УСПЕВАЕМОСТЬ_Студенты" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="7.375" PointY="5.125" />
+        <EntityTypeShape EntityType="Model.Оценки" Width="1.5" PointX="5.25" PointY="0.75" />
+        <AssociationConnector Association="Model.FK_Оценки_Студенты" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

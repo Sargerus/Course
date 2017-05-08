@@ -47,71 +47,48 @@ namespace Course.ViewModel
             return !String.IsNullOrWhiteSpace(Login) && !String.IsNullOrWhiteSpace(Password);
         }
 
-        char[] GetHashString(string s)
+        string GetHashString(string s)
         {
-            //переводим строку в байт-массим  
-            byte[] bytes = Encoding.Unicode.GetBytes(s);
+            MD5 md5Hasher = MD5.Create();
 
-            //создаем объект для получения средст шифрования  
-            MD5CryptoServiceProvider CSP =
-                new MD5CryptoServiceProvider();
+            // Преобразуем входную строку в массив байт и вычисляем хэш
+            byte[] data = md5Hasher.ComputeHash(Encoding.Default.GetBytes(s));
 
-            //вычисляем хеш-представление в байтах  
-            byte[] byteHash = CSP.ComputeHash(bytes);
+            // Создаем новый Stringbuilder (Изменяемую строку) для набора байт
+            StringBuilder sBuilder = new StringBuilder();
 
-            string hash = string.Empty;
-
-            //формируем одну цельную строку из массива  
-            foreach (byte b in byteHash)
-                hash += string.Format("{0:x2}", b);
-
+            // Преобразуем каждый байт хэша в шестнадцатеричную строку
+            for (int i = 0; i < data.Length; i++)
+            {
+                //указывает, что нужно преобразовать элемент в шестнадцатиричную строку длиной в два символа
+                sBuilder.Append(data[i].ToString("x2"));
+            }
+            return sBuilder.ToString();
             
-            char[] newhash = new char[hash.Length+4];
-            int i = 0;
-
-            for (; i < 8; i++)
-                newhash[i]=hash[i];
-            newhash[i]='-';
-            i++;
-
-            for (; i < 13; i++)
-                newhash[i] = hash[i - 1];
-            newhash[i] = '-';
-
-            i++;
-            for (; i < 18; i++)
-                newhash[i] = hash[i - 2];
-            newhash[i] = '-';
-
-            i++;
-
-            for (; i < 23; i++)
-                newhash[i] = hash[i - 3];
-            newhash[i] = '-';
-
-            i++;
-
-            for (; i < 36; i++)
-                newhash[i] = hash[i - 4];
-
-            return newhash;
         }  
 
         private void LogAndPassToDatabase()
         {
-            Entities me = new Entities();
-
-            var s = (from g in me.Users where g.UserName == this.Login select g.Password).ToList();
             
-            char[] str = GetHashString(Password);
-            bool flag = true;
-            for (int i = 0; i < 36; i++)
-                if (str[i] != s[0].ToString()[i])
-                    flag = false;
+            Entities me = new Entities();
+            me.ChangeTracker.DetectChanges();
 
-
+            var s = (from g in me.Users where g.UserName == this.Login select g).ToList();
+            
+            string str = GetHashString(Password);
+            bool flag = false;
+            
+            if (str.Equals(s[0].Password.ToString().Replace("-",String.Empty)))
+                flag = true;
             if (flag)
             {
+                switch(s[0].Acceslevel)
+                {
+                    case 1: AccesLevel = AccesLevels.User; break;
+                    case 2: AccesLevel = AccesLevels.Teacher; break;
+                    case 3: AccesLevel = AccesLevels.Dean; break;
+                    default: MessageBox.Show("Error in database"); Application.Current.MainWindow.Close(); break;
+                }
 
                 var NewWindow = new StudentMain();
                 NewWindow.Show();
@@ -120,7 +97,7 @@ namespace Course.ViewModel
 
             }
             else MessageBox.Show("Неверный пароль");
-            //md5
+            
 
         }
     }

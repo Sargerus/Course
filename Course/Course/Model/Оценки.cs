@@ -12,10 +12,13 @@ namespace Course.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class Оценки
     {
-        public string UserName { get; set; }
-        public System.Guid Password { get; set; }
-        public Nullable<short> Acceslevel { get; set; }
+        public string Номер_студенческого_билета { get; set; }
+        public string Название_предмета { get; set; }
+        public double Оценка { get; set; }
+        public System.DateTime Дата_выставления { get; set; }
+    
+        public virtual Студенты Студенты { get; set; }
     }
 }

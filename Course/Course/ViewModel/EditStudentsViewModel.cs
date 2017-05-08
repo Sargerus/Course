@@ -1,21 +1,20 @@
-﻿using System;
+﻿using Course.Model;
+using Course.Views;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Course.Model;
-using System.ComponentModel;
 using System.Windows;
-using System.Windows.Input;
-using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using Microsoft.Win32;
-using Course.Views;
 
 namespace Course.ViewModel
 {
-    public class SearchStudentsViewModel : ViewModelBase
+    public class EditStudentsViewModel : ViewModelBase
     {
+        public bool IsChange;
         List<Student> buf;
         private List<Student> Total { get; set; }
         public List<Student> mainlist { get; set; }
@@ -23,8 +22,21 @@ namespace Course.ViewModel
         private string studnumber;
         private int currentvalue;
         private string selectedType;
-       
+        public GeneralCommand BackCommand { get; set; }
 
+        
+
+        public void Back()
+        {
+            var NewWindow = new StudentMain();
+
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+         
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
+        }
         public void ResetSlider()
         {
             currentvalue = 0;
@@ -46,9 +58,6 @@ namespace Course.ViewModel
         }
         public ICollection<string> StudentsType { get; set; }
         public GeneralCommand ResetSliderCommand { get; set; }
-        public GeneralCommand BackCommand { get; set; }
-        public GeneralCommand SaveCommand { get; set; }
-        public GeneralCommand SearchTeachersCommand { get; set; }
         public int CurrentValue
         {
             get
@@ -130,14 +139,16 @@ namespace Course.ViewModel
                 // Logic for saving to database
             }
         }
-        public SearchStudentsViewModel()
+
+        private void DataGrid_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
+        {
+            IsChange = true;
+        }
+        public EditStudentsViewModel()
         {
 
             ResetSliderCommand = new GeneralCommand(ResetSlider);
             BackCommand = new GeneralCommand(Back, null);
-            SaveCommand = new GeneralCommand(Save, null);
-            SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
-            
            
 
             var JoinedTable = (sqlcon.DBase.Студенты.Join(sqlcon.DBase.УСПЕВАЕМОСТЬ, p => p.Номер_студенческого_билета, c => c.Номер_студенческого_билета,
@@ -174,56 +185,6 @@ namespace Course.ViewModel
             SelectedType = StudentsType.First();
 
         }
-        public void Save()
-        {
-            try
-            {
-                SaveFileDialog savefiledialog = new SaveFileDialog();
-                savefiledialog.FileName = "*.txt";
-                savefiledialog.Filter = "TXT File|*.txt";
-                savefiledialog.Title = "Saving result";
-                savefiledialog.ShowDialog();
-
-                if (System.IO.File.Exists(savefiledialog.FileName))
-                    System.IO.File.Delete(savefiledialog.FileName);
-
-                if (savefiledialog.FileName != "")
-                {
-                    for (int g = 0; g < mainlist.Count; g++)
-                    {
-                        System.IO.File.AppendAllText(savefiledialog.FileName, (g + 1).ToString());
-                        System.IO.File.AppendAllText(savefiledialog.FileName, mainlist[g].ToString());
-                        System.IO.File.AppendAllText(savefiledialog.FileName, "\r\n");
-                    }
-                }
-            }
-            catch
-            {
-
-            }
-        }
-        
-        public void SearchTeacher()
-        {
-            var NewWindow = new SearchTeachers();
-            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
-            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
-            NewWindow.Show();
-            Application.Current.MainWindow.Close();
-            Application.Current.MainWindow = NewWindow;
-        }
-
-        public void Back()
-        {
-            var NewWindow = new StudentMain();
-
-            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
-            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
-            
-            NewWindow.Show();
-            Application.Current.MainWindow.Close();
-            Application.Current.MainWindow = NewWindow;
-        }
        
         public class Student
         {
@@ -252,22 +213,25 @@ namespace Course.ViewModel
             }
             public override string ToString()
             {
-                return " Номер студенческого билета: " + Номер_студенческого_билета.ToString() + "\r\n" +
-                       "Фамилия: " + Фамилия.ToString() + "\r\n" +
-                       "Факультет: " + Факультет.ToString() + "\r\n" +
-                       "Специальность: " + Специальность.ToString() + "\r\n" +
-                       "Курс: " + Курс.ToString() + "\r\n" +
-                       "Группа: " + Группа.ToString() + "\r\n" +
-                       "Подгруппа: " + Количество_пропусков_за_всё_время.ToString() + "\r\n";
+                return "Номер студенческого билета: " + Номер_студенческого_билета.ToString() + " " +
+                       "Фамилия: " + Фамилия.ToString() + " " +
+                       "Факультет: " + Факультет.ToString() + " " +
+                       "Специальность: " + Специальность.ToString() + " " +
+                       "Курс: " + Курс.ToString() + " " +
+                       "Группа: " + Группа.ToString() + " " +
+                       "Подгруппа: " + Количество_пропусков_за_всё_время.ToString();
             }
-           
+
+            
+            
+
 
         }
+        
+       
+        
 
-        
-        
 
 
     }
 }
-

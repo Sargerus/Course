@@ -32,5 +32,7 @@ namespace Course.Model
         public virtual DbSet<Студенты> Студенты { get; set; }
         public virtual DbSet<УСПЕВАЕМОСТЬ> УСПЕВАЕМОСТЬ { get; set; }
         public virtual DbSet<Факультеты> Факультеты { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<Оценки> Оценки { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Course.ViewModel;
+﻿using Course.Model;
+using Course.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,15 @@ namespace Course
         {
             DataContext = new StudentWindowViewModel();
             InitializeComponent();
+
+            Button b = (Button)this.FindName("OnlyForDean");
+            if (StudentWindowViewModel.AccesLevel != AccesLevels.Dean)
+                b.IsEnabled = false;
+            b = (Button)this.FindName("NotForUsers");
+            if (StudentWindowViewModel.AccesLevel == AccesLevels.User)
+                b.IsEnabled = false;
+
+            
         }
     }
 }

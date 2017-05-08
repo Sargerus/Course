@@ -1,9 +1,12 @@
 ﻿using Course.Model;
+using Course.Views;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Course.ViewModel
 {
@@ -28,6 +31,15 @@ namespace Course.ViewModel
                 Кафедра = pulpit;
                 Кабинет = cabinet;
                 Предметы = subjects;
+            }
+
+            public override string ToString()
+            {
+                return " Номер трудовой книжки: " + Номер_трудовой_книжки + "\r\n" +
+                 "Фамилия И О: " + Фамилия_И_О_ + "\r\n" +
+                 "Кафедра: " + Кафедра + "\r\n" +
+                 "Кабинет: " + Кабинет + "\r\n" +
+                 "Предметы: " + Предметы + "\r\n";
             }
         }
         public string BookNumber
@@ -69,10 +81,17 @@ namespace Course.ViewModel
         List<Teachers> buf;
         private List<Teachers> Total { get; set; }
         public List<Teachers> mainlist { get; set; }
+        public GeneralCommand BackCommand { get; set; }
+        public GeneralCommand SaveCommand { get; set; }
+        public GeneralCommand SearchStudentsCommand { get; set; }
 
         public SearchTeachersViewModel()
         {
             List<Преподаватели> buffer = (sqlcon.GetTeachers()).ToList();
+            SaveCommand = new GeneralCommand(Save, null);
+            SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
+            BackCommand = new GeneralCommand(Back, null);
+            
 
             mainlist = new List<Teachers>(buffer.Count);
             int k = 0;
@@ -86,6 +105,56 @@ namespace Course.ViewModel
             buf = null;
         }
 
+        public void Back()
+        {
+            var NewWindow = new StudentMain();
+
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
+        }
+
+        public void Save()
+        {
+            try
+            {
+                SaveFileDialog savefiledialog = new SaveFileDialog();
+                savefiledialog.FileName = "*.txt";
+                savefiledialog.Filter = "TXT File|*.txt";
+                savefiledialog.Title = "Saving result";
+                savefiledialog.ShowDialog();
+
+                if (System.IO.File.Exists(savefiledialog.FileName))
+                    System.IO.File.Delete(savefiledialog.FileName);
+
+                if (savefiledialog.FileName != "")
+                {
+                    for (int g = 0; g < mainlist.Count; g++)
+                    {
+                        System.IO.File.AppendAllText(savefiledialog.FileName, (g + 1).ToString());
+                        System.IO.File.AppendAllText(savefiledialog.FileName, mainlist[g].ToString());
+                        System.IO.File.AppendAllText(savefiledialog.FileName, "\r\n");
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        }
+        public void SearchStudents()
+        {
+            var NewWindow = new SearchStudentsWindow();
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
+        }
+      
         private void RefreshDatabase()
         {
             buf = Total;

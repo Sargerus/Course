@@ -7,12 +7,14 @@ using System.Windows;
 using Course.Model;
 using Course.Views;
 using Microsoft.Win32;
+using System.Windows.Controls;
 
 namespace Course.ViewModel
 {
     public class StudentWindowViewModel : ViewModelBase
     {
-        public class Student
+      
+        public class Student :IComparable
         {
             public string Номер_студенческого_билета { get; set; }
             public string Фамилия { get; set; }
@@ -20,12 +22,15 @@ namespace Course.ViewModel
             public string Специальность { get; set; }
             public Nullable<short> Курс { get; set; }
             public Nullable<short> Группа { get; set; }
-            public Nullable<short> Подгруппа { get; set; }
+            public Nullable<short> Количество_пропусков_за_всё_время { get; set; }
+            public Nullable<double> Средняя_оценка_за_всё_время { get; set; }
+
+      
             public Student()
             {
 
             }
-            public Student(string stud, string lname, string faculty, string prof, Nullable<short> cour, Nullable<short> group, Nullable<short> subgroup)
+            public Student(string stud, string lname, string faculty, string prof, Nullable<short> cour, Nullable<short> group, Nullable<short> miss, Nullable<double> mark)
             {
                 Номер_студенческого_билета = stud;
                 Фамилия = lname;
@@ -33,21 +38,34 @@ namespace Course.ViewModel
                 Специальность = prof;
                 Курс = cour;
                 Группа = group;
-                Подгруппа = subgroup;
+                Количество_пропусков_за_всё_время = miss;
+                Средняя_оценка_за_всё_время = mark;                           
             }
             public override string ToString()
             {
-                return "Номер студенческого билета: " + Номер_студенческого_билета.ToString() + " " +
-                       "Фамилия: " + Фамилия.ToString() + " " +
-                       "Факультет: " + Факультет.ToString() + " " + 
-                       "Специальность: " + Специальность.ToString() + " " + 
-                       "Курс: " + Курс.ToString() + " " + 
-                       "Группа: " + Группа.ToString() + " " + 
-                       "Подгруппа: " + Подгруппа.ToString();
+                return ") Номер студенческого билета: " + Номер_студенческого_билета.ToString() + " \r\n" +
+                       "  Фамилия: " + Фамилия.ToString() + "\r\n" +
+                       "  Факультет: " + Факультет.ToString() + "\r\n" +
+                       "  Специальность: " + Специальность.ToString() + "\r\n" +
+                       "  Курс: " + Курс.ToString() + "\r\n" +
+                       "  Группа: " + Группа.ToString() + "\r\n" +
+                       "  Пропусков за всё время: " + Количество_пропусков_за_всё_время.ToString() + "\r\n" + 
+                       "  Средняя оценка за всё время: " + Средняя_оценка_за_всё_время.ToString() + "\r\n";
             }
-            
-        }
 
+
+            public int CompareTo(object obj)
+            {
+                Student other = obj as Student;
+                if (this.Средняя_оценка_за_всё_время > other.Средняя_оценка_за_всё_время)
+                    return 1;
+                if (this.Средняя_оценка_за_всё_время < other.Средняя_оценка_за_всё_время)
+                    return -1;
+                return 0;
+
+            }
+        }
+        
         public List<Студенты> s { get; set; }
         public List<Student> student { get; set; }
         public GeneralCommand ShowTeachersCommand { get; set; }
@@ -55,6 +73,10 @@ namespace Course.ViewModel
         public GeneralCommand SaveCommand { get; set; }
         public GeneralCommand SearchStudentsCommand { get; set; }
         public GeneralCommand SearchTeachersCommand { get; set; }
+        public GeneralCommand EditTeachersCommand { get; set; }
+        public GeneralCommand EditStudentsCommand { get; set; }
+        public GeneralCommand AttestationCommand { get; set; }
+        
         public StudentWindowViewModel()
         {
             
@@ -63,10 +85,42 @@ namespace Course.ViewModel
             SaveCommand = new GeneralCommand(Save, null);
             SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
             SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
+            EditStudentsCommand = new GeneralCommand(EditStudents, null);
+            EditTeachersCommand = new GeneralCommand(EditTeachers, null);
+            AttestationCommand = new GeneralCommand(Attestation, null);
             ShowTable();
             
         }
 
+        public void EditTeachers()
+        {
+            if (AccesLevel == AccesLevels.Dean)
+            {
+
+            }
+            else MessageBox.Show("Not enougth rights!!!");
+        }
+        public void Attestation()
+        {
+            var NewWindow = new AttestationWindow();
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+
+
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
+        }
+        
+        public void EditStudents()
+        {
+                var NewWindow = new EditStudentsWindow();
+                NewWindow.Show();
+                Application.Current.MainWindow.Close();
+                Application.Current.MainWindow = NewWindow;
+            
+            
+        }
         public void Save()
         {
             try
@@ -84,6 +138,7 @@ namespace Course.ViewModel
                 {
                     for (int g = 0; g < student.Count; g++)
                     {
+                        System.IO.File.AppendAllText(savefiledialog.FileName, (g + 1).ToString());
                         System.IO.File.AppendAllText(savefiledialog.FileName, student[g].ToString());
                         System.IO.File.AppendAllText(savefiledialog.FileName, "\r\n");
                     }
@@ -94,7 +149,6 @@ namespace Course.ViewModel
 
             }
                     }
-
         public void SearchStudents()
         {
             var NewWindow = new SearchStudentsWindow();
@@ -102,7 +156,6 @@ namespace Course.ViewModel
             Application.Current.MainWindow.Close();
             Application.Current.MainWindow = NewWindow;
         }
-
         public void SearchTeacher()
         {
             var NewWindow = new SearchTeachers();
@@ -113,6 +166,10 @@ namespace Course.ViewModel
         public void ShowTeachers()
         {
             var NewWindow = new TeachersWindow();
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+            
+         
             NewWindow.Show();
             Application.Current.MainWindow.Close();
             Application.Current.MainWindow = NewWindow;
@@ -120,24 +177,44 @@ namespace Course.ViewModel
         public void ShowPerfomance()
         {
             var NewWindow = new PerfomanceWindow();
+
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+         
             NewWindow.Show();
             Application.Current.MainWindow.Close();
             Application.Current.MainWindow = NewWindow;
         }
-
-
         private void ShowTable()
         {
             //logic work with data for DataGrid
-            s = (sqlcon.GetStudents()).ToList();
-            student = new List<Student>(s.Count);
+
+               var JoinedTable = (sqlcon.DBase.Студенты.Join(sqlcon.DBase.УСПЕВАЕМОСТЬ, p => p.Номер_студенческого_билета, c => c.Номер_студенческого_билета,
+                (p, c) => new
+                {
+                    Номер_студбилета = p.Номер_студенческого_билета,
+                    Фамилия = p.Фамилия,
+                    Факультет = p.Факультет,
+                    Специальность = p.Специальность,
+                    Курс = p.Курс,
+                    Группа = p.Группа,
+                    Пропусков = c.Количество_пропусков_за_всё_время,
+                    Средняя_оценка = c.Средняя_оценка_за_всё_время
+                })).ToList();
+
+
+            
+            student = new List<Student>(JoinedTable.Count);
             int k = 0;
-            while (k < s.Count)
+            while (k < JoinedTable.Count)
             {
-                student.Add(new Student(s[k].Номер_студенческого_билета, s[k].Фамилия, s[k].Факультет,
-                                     s[k].Специальность, s[k].Курс, s[k].Группа, s[k].Подгруппа));
+                student.Add(new Student(JoinedTable[k].Номер_студбилета, JoinedTable[k].Фамилия, JoinedTable[k].Факультет,
+                                     JoinedTable[k].Специальность, JoinedTable[k].Курс, JoinedTable[k].Группа, JoinedTable[k].Пропусков, JoinedTable[k].Средняя_оценка));
                 k++;
             }
+           
+            
+            student.Sort();
             
         }
     }

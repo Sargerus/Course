@@ -13,5 +13,6 @@
         <Setter Property="CanUserResizeColumns" Value="False"></Setter>
         <Setter Property="CanUserResizeRows" Value="False"></Setter>
         <Setter Property="CanUserSortColumns" Value="False"></Setter>
+        <Setter Property="IsReadOnly" Value="True"></Setter>
     </Style>
 </ResourceDictionary>

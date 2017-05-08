@@ -10,6 +10,7 @@ namespace Course.ViewModel
 {
     public class ViewModelBase : INotifyPropertyChanged
     {
+        public static AccesLevels AccesLevel;
         public SqlConnection sqlcon;
         public event PropertyChangedEventHandler PropertyChanged;
 

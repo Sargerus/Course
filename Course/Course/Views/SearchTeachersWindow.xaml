@@ -21,8 +21,8 @@
                 <MenuItem Header="{DynamicResource m_SaveAs}"></MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource m_Search}" StaysOpenOnClick="True">
-                <MenuItem Header="{DynamicResource m_Students}"></MenuItem>
-                <MenuItem Header="{DynamicResource m_Teachers}"></MenuItem>
+                <MenuItem Command="{Binding SearchStudentsCommand}" Header="{DynamicResource m_Students}"></MenuItem>
+                <MenuItem  Header="{DynamicResource m_Teachers}"></MenuItem>
             </MenuItem>
         </Menu>
         <Label Content="Фамилия" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Height="29" Grid.Row="1" Width="63"/>
@@ -30,6 +30,8 @@
         <Label Content="Номер труд." HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" Height="25" Grid.Row="1" Width="79"/>
         <TextBox Text="{Binding BookNumber}" HorizontalAlignment="Left" Height="23" Margin="89,89,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <DataGrid AutoGenerateColumns="True" ItemsSource="{Binding mainlist}" HorizontalAlignment="Left" Margin="236,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="Auto" Width="Auto"/>
+
+        <Button Content="Вернуться" Command="{Binding BackCommand}" HorizontalAlignment="Left" Margin="10,0,0,-400" Grid.Row="1" Width="150" Height="50"/>
 
     </Grid>
 </Window>
