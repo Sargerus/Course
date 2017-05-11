@@ -16,8 +16,9 @@ namespace Course.ViewModel
         public GeneralCommand BeginCheckCommand { get; set; }
         public MainWindowViewModel()
         {
-            //this.Login = "user";
-            //this.Password = "password";
+            _login = "Dean";
+            _password = "dean";
+            
             BeginCheckCommand = new GeneralCommand(LogAndPassToDatabase, IsLogAndPassValid);
         }
 

@@ -96,7 +96,14 @@ namespace Course.ViewModel
         {
             if (AccesLevel == AccesLevels.Dean)
             {
+                var NewWindow = new EditTeachersWindow();
+                NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+                NewWindow.Width = Application.Current.MainWindow.ActualWidth;
 
+
+                NewWindow.Show();
+                Application.Current.MainWindow.Close();
+                Application.Current.MainWindow = NewWindow;
             }
             else MessageBox.Show("Not enougth rights!!!");
         }
