@@ -16,9 +16,11 @@ namespace Course.ViewModel
         public GeneralCommand BeginCheckCommand { get; set; }
         public MainWindowViewModel()
         {
+            
             _login = "Dean";
             _password = "dean";
-            
+
+            Language = Course.Properties.Settings.Default.DefaultLanguage;
             BeginCheckCommand = new GeneralCommand(LogAndPassToDatabase, IsLogAndPassValid);
         }
 
@@ -85,7 +87,7 @@ namespace Course.ViewModel
             {
                 switch(s[0].Acceslevel)
                 {
-                    case 1: AccesLevel = AccesLevels.User; break;
+                    case 1: { AccesLevel = AccesLevels.User; StudNumber = _login; } break;
                     case 2: AccesLevel = AccesLevels.Teacher; break;
                     case 3: AccesLevel = AccesLevels.Dean; break;
                     default: MessageBox.Show("Error in database"); Application.Current.MainWindow.Close(); break;

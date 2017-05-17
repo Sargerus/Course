@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Course.Views.SearchTeachers"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="SearchTeachers"  Padding="250,250,250,250">
+        Title="SearchTeachers" >
 
     <Window.Background>
         <ImageBrush ImageSource="e:\4 семестр\c#\Курсовой проект\search.jpg" Stretch="UniformToFill" TileMode="None" />
@@ -13,25 +13,25 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-       
+
 
         <Menu>
             <MenuItem Header="{DynamicResource m_Save}" StaysOpenOnClick="True">
                 <MenuItem Header="{DynamicResource m_Save}" Command="{Binding SaveCommand}"></MenuItem>
-                <MenuItem Header="{DynamicResource m_SaveAs}"></MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource m_Search}" StaysOpenOnClick="True">
                 <MenuItem Command="{Binding SearchStudentsCommand}" Header="{DynamicResource m_Students}"></MenuItem>
                 <MenuItem  Header="{DynamicResource m_Teachers}"></MenuItem>
             </MenuItem>
         </Menu>
-        <Label Content="Фамилия" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top" Height="29" Grid.Row="1" Width="63"/>
-        <TextBox Text="{Binding LName}" HorizontalAlignment="Left" Height="23" Margin="89,54,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Номер труд." HorizontalAlignment="Left" Margin="10,87,0,0" VerticalAlignment="Top" Height="25" Grid.Row="1" Width="79"/>
-        <TextBox Text="{Binding BookNumber}" HorizontalAlignment="Left" Height="23" Margin="89,89,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <DataGrid AutoGenerateColumns="True" ItemsSource="{Binding mainlist}" HorizontalAlignment="Left" Margin="236,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="Auto" Width="Auto"/>
+        <DataGrid AutoGenerateColumns="True" ItemsSource="{Binding mainlist}" HorizontalAlignment="Left" Margin="300,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="Auto" Width="Auto"/>
 
-        <Button Content="Вернуться" Command="{Binding BackCommand}" HorizontalAlignment="Left" Margin="10,0,0,-400" Grid.Row="1" Width="150" Height="50"/>
-
+        <StackPanel HorizontalAlignment="Left" Height="Auto" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="Auto">
+            <Label Content="{DynamicResource m_Surname}" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top" Height="Auto" Grid.Row="1" Width="Auto" FontSize="16"/>
+            <TextBox Text="{Binding LName}" HorizontalAlignment="Left" Height="23" Margin="120,-25,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Label Content="{DynamicResource m_WorkNumb}" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top" Height="Auto" Grid.Row="1" Width="Auto" FontSize="16"/>
+            <TextBox Text="{Binding BookNumber}" HorizontalAlignment="Left" Height="23" Margin="120,-25,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Button Content="{DynamicResource m_Back}" Command="{Binding BackCommand}" HorizontalAlignment="Left" Margin="50,13,0,305" Grid.Row="1" Width="150" Height="50"/>
+        </StackPanel>
     </Grid>
 </Window>

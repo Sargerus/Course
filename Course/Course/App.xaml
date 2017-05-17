@@ -6,13 +6,14 @@
           <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/lang.xaml"></ResourceDictionary>
-                <ResourceDictionary Source="Resources/lang.ru-RU.xaml"/>
-                <ResourceDictionary Source="Resources/lang.en-US.xaml"/>
+                <!--<ResourceDictionary Source="Resources/lang.ru-RU.xaml"/>
+                <ResourceDictionary Source="Resources/lang.en-US.xaml"/>-->
 
                 <ResourceDictionary Source="Resources/ButtonStyle.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Resources/TextBoxStyle.xaml"/>
                 <ResourceDictionary Source="Resources/DataGridStyle.xaml"/>
                 <ResourceDictionary Source="Resources/ListBoxItem.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources/PasswordBoxStyle.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Course.Views.AttestationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="AttestationWindow" Padding="250,250,250,250">
+        Title="AttestationWindow">
 
     <Window.Background>
         <ImageBrush ImageSource="e:\4 семестр\c#\Курсовой проект\search.jpg" Stretch="UniformToFill" TileMode="None" />
@@ -18,31 +18,30 @@
         <Menu>
             <MenuItem Header="{DynamicResource m_Save}" StaysOpenOnClick="True">
                 <MenuItem Header="{DynamicResource m_Save}" Command="{Binding SaveCommand}"></MenuItem>
-                <MenuItem Header="{DynamicResource m_SaveAs}"></MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource m_Search}" StaysOpenOnClick="True">
-                <MenuItem  Header="{DynamicResource m_Students}"></MenuItem>
+                <MenuItem  Header="{DynamicResource m_Students}" Command="{Binding SearchStudentsCommand}"></MenuItem>
                 <MenuItem Command="{Binding SearchTeachersCommand}" Header="{DynamicResource m_Teachers}"></MenuItem>
             </MenuItem>
         </Menu>
 
 
-        <StackPanel HorizontalAlignment="Left" Height="275" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="255">
-            <Label Content="Факультет" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" Height="29" Grid.Row="1" Width="Auto"/>
-            <TextBox Text="{Binding StudentFaculty, Mode=TwoWay}" HorizontalAlignment="Left" Height="Auto" Margin="90,-25,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            <Label Content="Курс" HorizontalAlignment="Left" Margin="18,15,0,0" VerticalAlignment="Top" Height="29" Grid.Row="1" Width="Auto"/>
+        <StackPanel HorizontalAlignment="Left" Height="368" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="273">
+            <Label Content="{DynamicResource m_Faculty}" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top" Height="Auto" Grid.Row="1" Width="Auto" FontSize="18"/>
+           <TextBox Text="{Binding StudentFaculty, Mode=TwoWay}" HorizontalAlignment="Left" Height="Auto" Margin="120,-25,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Label Content="{DynamicResource m_Course}" HorizontalAlignment="Left" Margin="5,15,0,0" VerticalAlignment="Top" Height="Auto" Grid.Row="1" Width="Auto" FontSize="18"/>
 
-            <TextBox Text="{Binding StudentCourse, Mode=TwoWay}" HorizontalAlignment="Left" Height="Auto" Margin="90,-25,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            <TextBox Text="{Binding StudentGroup, Mode=TwoWay}" Height="23"  Margin="90,15,45,0"/>
-            <Label Content="Группа" HorizontalAlignment="Left" Margin="18,-25,0,0" VerticalAlignment="Top" Height="29" Width="Auto"/>
-            <Button Content="Поиск" Command="{Binding BeginAttCommand}" Margin="-60,15,0,0" Width="80" Height="25"/>
-            <Button Content="Очистить" Command="{Binding ClearCommand}" Margin="110,-25,0,0" Width="80" Height="25"/>
+            <TextBox Text="{Binding StudentCourse, Mode=TwoWay}" HorizontalAlignment="Left" Height="Auto" Margin="120,-25,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <TextBox Text="{Binding StudentGroup, Mode=TwoWay}" Height="23"  Margin="120,15,45,0"/>
+            <Label Content="{DynamicResource m_Group}" HorizontalAlignment="Left" Margin="18,-25,0,0" VerticalAlignment="Top" Height="Auto" Width="Auto" FontSize="18"/>
+            <Button Content="{DynamicResource m_Search}" Command="{Binding BeginAttCommand}" Margin="-60,15,0,0" Width="80" Height="25"/>
+            <Button Content="{DynamicResource m_Clear}" Command="{Binding ClearCommand}" Margin="110,-25,0,0" Width="80" Height="25"/>
+            <Button Content="{DynamicResource m_Back}" Command="{Binding BackCommand}" HorizontalAlignment="Left" Width="150" Height="50" Margin="75,10,0,0"/>
 
 
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" Height="Auto"   Margin="270,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="Auto">
             <DataGrid AutoGenerateColumns="True" ItemsSource="{Binding mainlist}" HorizontalAlignment="Left" Margin="20,10,0,0" Grid.Row="1" VerticalAlignment="Top" Height="Auto" Width="Auto"/>
         </StackPanel>
-        <Button Content="Вернуться" Command="{Binding BackCommand}" HorizontalAlignment="Left" Margin="10,0,0,-400" Grid.Row="1" Width="150" Height="50"/>
     </Grid>
 </Window>

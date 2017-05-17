@@ -1,9 +1,9 @@
 ﻿<Window x:Class="Course.Views.PerfomanceWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="PerfomanceWindow"  WindowStartupLocation="CenterScreen"
+        Title="PerfomanceWindow" 
         
-        Padding="250,250,250,250">
+        >
 
     <Window.Background>
         <ImageBrush ImageSource="e:\4 семестр\c#\Курсовой проект\perfomance.jpg" Stretch="UniformToFill" TileMode="None" />
@@ -17,11 +17,10 @@
         <Menu>
             <MenuItem Header="{DynamicResource m_Save}" StaysOpenOnClick="True">
                 <MenuItem Header="{DynamicResource m_Save}"></MenuItem>
-                <MenuItem Header="{DynamicResource m_SaveAs}"></MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource m_Search}" StaysOpenOnClick="True">
-                <MenuItem  Command="{Binding ShowStudentCommand}" Header="{DynamicResource m_Students}"></MenuItem>
-                <MenuItem Command="{Binding ShowTeachersCommand}" Header="{DynamicResource m_Teachers}"></MenuItem>
+                <MenuItem  Command="{Binding SearchStudentsCommand}" Header="{DynamicResource m_Students}"></MenuItem>
+                <MenuItem Command="{Binding SearchTeachersCommand}" Header="{DynamicResource m_Teachers}"></MenuItem>
             </MenuItem>
 
         </Menu>

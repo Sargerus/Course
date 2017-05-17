@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Course.Views.EditStudentsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="EditStudentsWindow" Padding="250,250,250,250">
+        Title="EditStudentsWindow" >
     <Grid>
 
         <Grid.RowDefinitions>
@@ -17,22 +17,22 @@
                 <MenuItem Header="{DynamicResource m_SaveAs}"></MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource m_Search}" StaysOpenOnClick="True">
-                <MenuItem Header="{DynamicResource m_Students}"></MenuItem>
-                <MenuItem Header="{DynamicResource m_Teachers}"></MenuItem>
+                <MenuItem Header="{DynamicResource m_Students}" Command="{Binding SearchStudentsCommand}"></MenuItem>
+                <MenuItem Header="{DynamicResource m_Teachers}" Command="{Binding SearchTeachersCommand}"></MenuItem>
             </MenuItem>
         </Menu>
 
 
-        <StackPanel HorizontalAlignment="Left" Height="275" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="255">
-            <Label Content="Фамилия" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" Height="29" Grid.Row="1" Width="Auto"/>
-            <TextBox Text="{Binding LName}" HorizontalAlignment="Left" Height="Auto" Margin="90,-25,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            <Label Content="Студбилет" HorizontalAlignment="Left" Margin="18,15,0,0" VerticalAlignment="Top" Height="29" Grid.Row="1" Width="Auto"/>
+        <StackPanel HorizontalAlignment="Left" Height="307" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="255">
+            <Label Content="{DynamicResource m_Surname}" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top" Height="29" Grid.Row="1" Width="Auto" FontSize="16"/>
+            <TextBox Text="{Binding LName}" HorizontalAlignment="Left" Height="Auto" Margin="110,-25,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Label Content="{DynamicResource m_StudNumb}" HorizontalAlignment="Left" Margin="5,15,0,0" VerticalAlignment="Top" Height="29" Grid.Row="1" Width="Auto" FontSize="16"/>
 
-            <TextBox Text="{Binding StudNumber}" HorizontalAlignment="Left" Height="Auto" Margin="90,-25,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            <Label Content="Пропуски меньше:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="Auto" Grid.Row="1" Width="Auto"/>
+            <TextBox Text="{Binding StudNumber}" HorizontalAlignment="Left" Height="Auto" Margin="110,-25,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Label Content="{DynamicResource m_MissLess}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="Auto" Grid.Row="1" Width="Auto" FontSize="16"/>
             <Slider Value="{Binding CurrentValue}" Minimum="0" Maximum="300" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="121"/>
             <TextBox Text="{Binding CurrentValue}"  HorizontalAlignment="Left" Height="23" Margin="150,-23,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="42"/>
-            <Label Content="По оценкам:" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="Auto" Grid.Row="1" Width="Auto"/>
+            <Label Content="{DynamicResource m_ByMarks}" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="Auto" Grid.Row="1" Width="Auto" FontSize="16"/>
             <!--<Button Command="{Binding ResetSliderCommand}" Content="R" HorizontalAlignment="Left" Margin="0,195,0,0" Grid.Row="1" VerticalAlignment="Top" Width="44" Height="23"/>-->
 
             <ListBox ItemsSource="{Binding StudentsType}"
@@ -42,6 +42,8 @@
                      BorderThickness="0"
                      ItemTemplate="{StaticResource ListBoxItemTemplate}" Margin="0,0,0,0" Grid.Row="1"  
                      Height="Auto" Width="Auto" />
+
+            <Button Content="{DynamicResource m_Back}" Command="{Binding BackCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" Height="41" Margin="60,10"/>
 
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" Height="Auto"   Margin="270,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="Auto">
@@ -59,6 +61,5 @@
                       CanUserSortColumns="True"
                       IsReadOnly="False"/>
         </StackPanel>
-        <Button Content="Вернуться" Command="{Binding BackCommand}" HorizontalAlignment="Left" Margin="10,434,0,0" Grid.Row="1" VerticalAlignment="Top" Width="121" Height="41"/>
     </Grid>
 </Window>

@@ -76,11 +76,13 @@ namespace Course.ViewModel
         public GeneralCommand EditTeachersCommand { get; set; }
         public GeneralCommand EditStudentsCommand { get; set; }
         public GeneralCommand AttestationCommand { get; set; }
-        
+        public GeneralCommand ChangeLangRusCommand { get; set; }
+        public GeneralCommand ChangeLangEngCommand { get; set; }
+
         public StudentWindowViewModel()
         {
             
-            ShowTeachersCommand = new GeneralCommand(ShowTeachers, null);
+            ShowTeachersCommand = new GeneralCommand(ShowTeachers,null);
             ShowPerfomanceCommand = new GeneralCommand(ShowPerfomance, null);
             SaveCommand = new GeneralCommand(Save, null);
             SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
@@ -88,15 +90,35 @@ namespace Course.ViewModel
             EditStudentsCommand = new GeneralCommand(EditStudents, null);
             EditTeachersCommand = new GeneralCommand(EditTeachers, null);
             AttestationCommand = new GeneralCommand(Attestation, null);
+            ChangeLangRusCommand = new GeneralCommand(ChangeLangRus, null);
+            ChangeLangEngCommand = new GeneralCommand(ChangeLangEng, null);
+            
             ShowTable();
             
         }
-
+        public void ChangeLangRus()
+        {
+            //string str = param as string;
+            //switch (str)
+            //{
+            //    case "Rus": {MessageBox.Show("Rus"); break;}
+            //    case "Eng": { MessageBox.Show("Eng"); break; }
+            //
+                Language = new System.Globalization.CultureInfo("ru-RU");
+        }
+        public void ChangeLangEng()
+        {
+                Language = new System.Globalization.CultureInfo("en-US");
+        
+        }
         public void EditTeachers()
         {
             if (AccesLevel == AccesLevels.Dean)
             {
                 var NewWindow = new EditTeachersWindow();
+
+                NewWindow.Top = Application.Current.MainWindow.Top;
+                NewWindow.Left = Application.Current.MainWindow.Left;
                 NewWindow.Height = Application.Current.MainWindow.ActualHeight;
                 NewWindow.Width = Application.Current.MainWindow.ActualWidth;
 
@@ -109,23 +131,29 @@ namespace Course.ViewModel
         }
         public void Attestation()
         {
-            var NewWindow = new AttestationWindow();
+            var NewWindow = new AttestationWindow(); 
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
             NewWindow.Height = Application.Current.MainWindow.ActualHeight;
             NewWindow.Width = Application.Current.MainWindow.ActualWidth;
-
 
             NewWindow.Show();
             Application.Current.MainWindow.Close();
             Application.Current.MainWindow = NewWindow;
         }
-        
         public void EditStudents()
         {
+            if (AccesLevel != AccesLevels.User)
+            {
                 var NewWindow = new EditStudentsWindow();
+                NewWindow.Top = Application.Current.MainWindow.Top;
+                NewWindow.Left = Application.Current.MainWindow.Left;
+                NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+                NewWindow.Width = Application.Current.MainWindow.ActualWidth;
                 NewWindow.Show();
                 Application.Current.MainWindow.Close();
                 Application.Current.MainWindow = NewWindow;
-            
+            }
             
         }
         public void Save()
@@ -158,14 +186,24 @@ namespace Course.ViewModel
                     }
         public void SearchStudents()
         {
+           
+            
             var NewWindow = new SearchStudentsWindow();
-            NewWindow.Show();
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+            NewWindow.Show();           
             Application.Current.MainWindow.Close();
             Application.Current.MainWindow = NewWindow;
         }
         public void SearchTeacher()
         {
             var NewWindow = new SearchTeachers();
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
             NewWindow.Show();
             Application.Current.MainWindow.Close();
             Application.Current.MainWindow = NewWindow;
@@ -173,6 +211,8 @@ namespace Course.ViewModel
         public void ShowTeachers()
         {
             var NewWindow = new TeachersWindow();
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
             NewWindow.Height = Application.Current.MainWindow.ActualHeight;
             NewWindow.Width = Application.Current.MainWindow.ActualWidth;
             
@@ -185,6 +225,8 @@ namespace Course.ViewModel
         {
             var NewWindow = new PerfomanceWindow();
 
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
             NewWindow.Height = Application.Current.MainWindow.ActualHeight;
             NewWindow.Width = Application.Current.MainWindow.ActualWidth;
          
@@ -195,31 +237,46 @@ namespace Course.ViewModel
         private void ShowTable()
         {
             //logic work with data for DataGrid
-
-               var JoinedTable = (sqlcon.DBase.Студенты.Join(sqlcon.DBase.УСПЕВАЕМОСТЬ, p => p.Номер_студенческого_билета, c => c.Номер_студенческого_билета,
-                (p, c) => new
-                {
-                    Номер_студбилета = p.Номер_студенческого_билета,
-                    Фамилия = p.Фамилия,
-                    Факультет = p.Факультет,
-                    Специальность = p.Специальность,
-                    Курс = p.Курс,
-                    Группа = p.Группа,
-                    Пропусков = c.Количество_пропусков_за_всё_время,
-                    Средняя_оценка = c.Средняя_оценка_за_всё_время
-                })).ToList();
-
+                var JoinedTable = (sqlcon.DBase.Студенты.Join(sqlcon.DBase.УСПЕВАЕМОСТЬ, p => p.Номер_студенческого_билета, c => c.Номер_студенческого_билета,
+                 (p, c) => new
+                 {
+                     Номер_студбилета = p.Номер_студенческого_билета,
+                     Фамилия = p.Фамилия,
+                     Факультет = p.Факультет,
+                     Специальность = p.Специальность,
+                     Курс = p.Курс,
+                     Группа = p.Группа,
+                     Пропусков = c.Количество_пропусков_за_всё_время,
+                     Средняя_оценка = c.Средняя_оценка_за_всё_время
+                 })).ToList();
+            
 
             
             student = new List<Student>(JoinedTable.Count);
-            int k = 0;
-            while (k < JoinedTable.Count)
-            {
-                student.Add(new Student(JoinedTable[k].Номер_студбилета, JoinedTable[k].Фамилия, JoinedTable[k].Факультет,
-                                     JoinedTable[k].Специальность, JoinedTable[k].Курс, JoinedTable[k].Группа, JoinedTable[k].Пропусков, JoinedTable[k].Средняя_оценка));
-                k++;
-            }
            
+                
+            int k = 0;
+            if (StudNumber != null || StudNumber != String.Empty)
+            {
+                while (k < JoinedTable.Count)
+                {
+
+                    if (JoinedTable[k].Номер_студбилета == StudNumber)
+                        student.Add(new Student(JoinedTable[k].Номер_студбилета, JoinedTable[k].Фамилия, JoinedTable[k].Факультет,
+                                             JoinedTable[k].Специальность, JoinedTable[k].Курс, JoinedTable[k].Группа, JoinedTable[k].Пропусков, JoinedTable[k].Средняя_оценка));
+
+                    k++;
+                }
+            }
+            else 
+            {
+                while (k < JoinedTable.Count)
+                {
+                        student.Add(new Student(JoinedTable[k].Номер_студбилета, JoinedTable[k].Фамилия, JoinedTable[k].Факультет,
+                                             JoinedTable[k].Специальность, JoinedTable[k].Курс, JoinedTable[k].Группа, JoinedTable[k].Пропусков, JoinedTable[k].Средняя_оценка));
+                        k++;
+                }
+            }   
             
             student.Sort();
             

@@ -2,15 +2,31 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:v="clr-namespace:System;assembly=mscorlib">
     <!-- Main window -->
-    <v:String x:Key="m_MainTitle">Hello</v:String>
-    <v:String x:Key="m_UserName">asd</v:String>
-    <v:String x:Key="m_Password">Пароль</v:String>
-    <v:String x:Key="m_Students">Студенты</v:String>
-    <v:String x:Key="m_Teachers">Преподаватели</v:String>
-    <v:String x:Key="m_Perfomance">Успеваемость</v:String>
-    <v:String x:Key="m_Enter">Войти</v:String>
-    <v:String x:Key="m_Save">Сохранить</v:String>
+    <v:String x:Key="m_MainTitle">BSTU Data Base</v:String>
+    <v:String x:Key="m_UserName">UserName</v:String>
+    <v:String x:Key="m_Password">Password</v:String>
+    <v:String x:Key="m_Students">Students</v:String>
+    <v:String x:Key="m_Teachers">Teachers</v:String>
+    <v:String x:Key="m_Perfomance">Perfomance</v:String>
+    <v:String x:Key="m_Enter">Enter</v:String>
+    <v:String x:Key="m_Save">Save</v:String>
     <v:String x:Key="m_SaveAs">Сохранить как</v:String>
-    <v:String x:Key="m_Search">Поиск</v:String>
+    <v:String x:Key="m_Search">Search</v:String>
+    <v:String x:Key="m_Tools">Tools</v:String>
+    <v:String x:Key="m_ChangeLang">Change Language</v:String>
+    <v:String x:Key="m_EditTeach">Edit Teachers</v:String>
+    <v:String x:Key="m_EditStud">Edit Students</v:String>
+    <v:String x:Key="m_Att">Attestation</v:String>
+    <v:String x:Key="m_Surname">Surname</v:String>
+    <v:String x:Key="m_StudNumb">Stud Number</v:String>
+    <v:String x:Key="m_MissLess">Misses less than:</v:String>
+    <v:String x:Key="m_ByMarks">By marks</v:String>
+    <v:String x:Key="m_Back">Back</v:String>
+    <v:String x:Key="m_WorkNumb">Work Number</v:String>
+    <v:String x:Key="m_Faculty">Faculty</v:String>
+    <v:String x:Key="m_Course">Course</v:String>
+    <v:String x:Key="m_Group">Group</v:String>
+    <v:String x:Key="m_Clear">Clear</v:String>
+    
     
 </ResourceDictionary>

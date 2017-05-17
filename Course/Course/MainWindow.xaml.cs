@@ -24,7 +24,9 @@ namespace Course
     {
         public MainWindow()
         {
-            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ru-RU");
+
+            
+           // Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ru-RU");
             DataContext = new MainWindowViewModel();
             InitializeComponent();
         }

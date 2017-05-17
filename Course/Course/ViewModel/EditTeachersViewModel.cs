@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Course.Views;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,8 @@ namespace Course.ViewModel
         public GeneralCommand SaveCommand { get; set; }
         public GeneralCommand ClearCommand { get; set; }
         public GeneralCommand BeginSeaCommand { get; set; }
+        public GeneralCommand SearchStudentsCommand { get; set; }
+        public GeneralCommand SearchTeachersCommand { get; set; }
         public string LName
         {
             get { return lname; }
@@ -91,7 +94,9 @@ namespace Course.ViewModel
             SaveCommand = new GeneralCommand(Save, null);
             BackCommand = new GeneralCommand(Back, null);
             ClearCommand = new GeneralCommand(Clear, null);
-            BeginSeaCommand = new GeneralCommand(BeginSea, null);
+            SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
+            SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
+            
             
 
             var JoinedTable = (sqlcon.DBase.Преподаватели.Join(sqlcon.DBase.Предметы, p => p.Предметы, c => c.ИД_пердмета,
@@ -149,6 +154,8 @@ namespace Course.ViewModel
         {
             var NewWindow = new StudentMain();
 
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
             NewWindow.Height = Application.Current.MainWindow.ActualHeight;
             NewWindow.Width = Application.Current.MainWindow.ActualWidth;
 
@@ -167,10 +174,6 @@ namespace Course.ViewModel
             mainlist = Total;
             OnPropertyChanged("mainlist");
         }
-        public void BeginSea()
-        {
-            
-        }
         public void RefreshDatabase()
         {
             buf = Total;
@@ -180,6 +183,30 @@ namespace Course.ViewModel
             mainlist = buf;
             OnPropertyChanged("mainlist");
             buf = null;
+        }
+        public void SearchStudents()
+        {
+
+
+            var NewWindow = new SearchStudentsWindow();
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
+        }
+        public void SearchTeacher()
+        {
+            var NewWindow = new SearchTeachers();
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
         }
     }
 }

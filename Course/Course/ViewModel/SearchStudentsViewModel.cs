@@ -206,6 +206,8 @@ namespace Course.ViewModel
         public void SearchTeacher()
         {
             var NewWindow = new SearchTeachers();
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
             NewWindow.Height = Application.Current.MainWindow.ActualHeight;
             NewWindow.Width = Application.Current.MainWindow.ActualWidth;
             NewWindow.Show();
@@ -217,6 +219,8 @@ namespace Course.ViewModel
         {
             var NewWindow = new StudentMain();
 
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
             NewWindow.Height = Application.Current.MainWindow.ActualHeight;
             NewWindow.Width = Application.Current.MainWindow.ActualWidth;
             

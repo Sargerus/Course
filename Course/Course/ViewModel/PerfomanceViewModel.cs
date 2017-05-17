@@ -13,6 +13,10 @@ namespace Course.ViewModel
     {
         public GeneralCommand ShowStudentCommand { get; set; }
         public GeneralCommand ShowTeachersCommand { get; set; }
+        public GeneralCommand SearchStudentsCommand { get; set; }
+        public GeneralCommand SearchTeachersCommand { get; set; }
+       
+
   
         public List<BufferedPerfomance> Perfomance { get; set; }
         private List<УСПЕВАЕМОСТЬ> Buffer { get; set; }
@@ -40,12 +44,18 @@ namespace Course.ViewModel
         {
             ShowTeachersCommand = new GeneralCommand(ShowTeachers, null);
             ShowStudentCommand = new GeneralCommand(ShowStudents, null);
+            SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
+            SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
+            
+
             FromBufferToList();
         }
         public void ShowTeachers()
         {
-            var NewWindow = new SearchTeachers();
-         
+            var NewWindow = new TeachersWindow();
+
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
             NewWindow.Height = Application.Current.MainWindow.ActualHeight;
             NewWindow.Width = Application.Current.MainWindow.ActualWidth;
          
@@ -55,8 +65,10 @@ namespace Course.ViewModel
         }
         public void ShowStudents()
         {
-            var NewWindow = new SearchStudentsWindow();
-         
+            var NewWindow = new StudentMain();
+
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
             NewWindow.Height = Application.Current.MainWindow.ActualHeight;
             NewWindow.Width = Application.Current.MainWindow.ActualWidth;
          
@@ -72,10 +84,39 @@ namespace Course.ViewModel
 
             for (int i = 0; i < Buffer.Count; i++)
             {
-                Perfomance.Add(new BufferedPerfomance(Buffer[i].Номер_студенческого_билета, Buffer[i].Средняя_оценка_за_всё_время,
-                    Buffer[i].Средняя_оценка_за_поледнюю_сессию, Buffer[i].Количество_пересдач_за_всё_время,
-                    Buffer[i].Количество_пропусков_за_всё_время, Buffer[i].Средняя_оценка_за_промежуточную_аттестацию));
+                if (StudNumber != null || StudNumber != String.Empty)
+                {
+                    if (Buffer[i].Номер_студенческого_билета == StudNumber)
+                        Perfomance.Add(new BufferedPerfomance(Buffer[i].Номер_студенческого_билета, Buffer[i].Средняя_оценка_за_всё_время,
+                            Buffer[i].Средняя_оценка_за_поледнюю_сессию, Buffer[i].Количество_пересдач_за_всё_время,
+                            Buffer[i].Количество_пропусков_за_всё_время, Buffer[i].Средняя_оценка_за_промежуточную_аттестацию));
+                }
             }
         }
+        public void SearchStudents()
+        {
+
+
+            var NewWindow = new SearchStudentsWindow();
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
+        }
+        public void SearchTeacher()
+        {
+            var NewWindow = new SearchTeachers();
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
+        }
+       
     }
 }

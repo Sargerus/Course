@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Course.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,16 +15,16 @@ namespace Course.ViewModel
             public string Номер_студенческого_билета { get; set; }
             public string Фамилия { get; set; }
             public string Факультет { get; set; }
-            public float Оценка { get; set; }
-            public string Название_предмета { get; set; }
             public Nullable<short> Курс { get; set; }
             public Nullable<short> Группа { get; set; }
+            public float Оценка { get; set; }
+            public string Название_предмета { get; set; }
      
             public Student()
             {
 
             }
-            public Student(string stud, string lname, string faculty, string subname, float mark, Nullable<short> cour, Nullable<short> group)
+            public Student(string stud, string lname, string faculty, Nullable<short> cour, Nullable<short> group,string subname, float mark)
             {
                 Номер_студенческого_билета = stud;
                 Фамилия = lname;
@@ -53,6 +54,9 @@ namespace Course.ViewModel
         public GeneralCommand BeginAttCommand { get; set; }
         public GeneralCommand ClearCommand { get; set; }
         public GeneralCommand BackCommand { get; set; }
+        public GeneralCommand SearchStudentsCommand { get; set; }
+        public GeneralCommand SearchTeachersCommand { get; set; }
+       
         public string StudentFaculty { get; set; }
         public Nullable<short> StudentCourse { get; set; }
         public Nullable<short> StudentGroup { get; set; }
@@ -62,6 +66,9 @@ namespace Course.ViewModel
             BeginAttCommand = new GeneralCommand(BeginAtt, null);
             ClearCommand = new GeneralCommand(Clear, null);
             BackCommand = new GeneralCommand(Back, null);
+            SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
+            SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
+            
             var JoinedTable = (sqlcon.DBase.Студенты.Join(sqlcon.DBase.Оценки, p => p.Номер_студенческого_билета, c => c.Номер_студенческого_билета,
                (p, c) => new
                {
@@ -80,7 +87,7 @@ namespace Course.ViewModel
             while (k < JoinedTable.Count)
             {
                 mainlist.Add(new Student(JoinedTable[k].Номер_студбилета, JoinedTable[k].Фамилия, JoinedTable[k].Факультет,
-                                      JoinedTable[k].Название_предмета, (float)JoinedTable[k].Оценка, JoinedTable[k].Курс, JoinedTable[k].Группа));
+                                       JoinedTable[k].Курс, JoinedTable[k].Группа, JoinedTable[k].Название_предмета, (float)JoinedTable[k].Оценка));
                 k++;
             }
             Total = mainlist;
@@ -103,6 +110,8 @@ namespace Course.ViewModel
         {
             var NewWindow = new StudentMain();
 
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
             NewWindow.Height = Application.Current.MainWindow.ActualHeight;
             NewWindow.Width = Application.Current.MainWindow.ActualWidth;
 
@@ -114,9 +123,45 @@ namespace Course.ViewModel
         {
             mainlist = Total;
             mainlist = (mainlist.Select(g => g).Where(g => g.Факультет == StudentFaculty && g.Курс == StudentCourse && g.Группа == StudentGroup).OrderBy(g => g.Фамилия)).ToList();
+
+            for (int i = 1; i < mainlist.Count; i++)
+            {
+                if (mainlist[i].Номер_студенческого_билета == mainlist[i - 1].Номер_студенческого_билета)
+                {
+                    mainlist[i].Группа                                       = null;
+                    mainlist[i].Курс                                         = null;
+                    mainlist[i].Номер_студенческого_билета                   = string.Empty;
+                    mainlist[i].Факультет                                    = string.Empty; 
+                    mainlist[i].Фамилия                                      = string.Empty;
+                }
+            }
             OnPropertyChanged("mainlist");
         }
 
-       
+        public void SearchStudents()
+        {
+
+
+            var NewWindow = new SearchStudentsWindow();
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
+        }
+        public void SearchTeacher()
+        {
+            var NewWindow = new SearchTeachers();
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
+        }
+    
     }
 }

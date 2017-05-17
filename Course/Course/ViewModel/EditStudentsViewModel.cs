@@ -16,6 +16,8 @@ namespace Course.ViewModel
     {
         public bool IsChange;
         List<Student> buf;
+        public GeneralCommand SearchStudentsCommand { get; set; }
+        public GeneralCommand SearchTeachersCommand { get; set; }
         private List<Student> Total { get; set; }
         public List<Student> mainlist { get; set; }
         private string lname;
@@ -30,6 +32,8 @@ namespace Course.ViewModel
         {
             var NewWindow = new StudentMain();
 
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
             NewWindow.Height = Application.Current.MainWindow.ActualHeight;
             NewWindow.Width = Application.Current.MainWindow.ActualWidth;
          
@@ -149,6 +153,9 @@ namespace Course.ViewModel
 
             ResetSliderCommand = new GeneralCommand(ResetSlider);
             BackCommand = new GeneralCommand(Back, null);
+            SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
+            SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
+            
            
 
             var JoinedTable = (sqlcon.DBase.Студенты.Join(sqlcon.DBase.УСПЕВАЕМОСТЬ, p => p.Номер_студенческого_билета, c => c.Номер_студенческого_билета,
@@ -227,7 +234,31 @@ namespace Course.ViewModel
 
 
         }
-        
+        public void SearchStudents()
+        {
+
+
+            var NewWindow = new SearchStudentsWindow();
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
+        }
+        public void SearchTeacher()
+        {
+            var NewWindow = new SearchTeachers();
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
+        }
+    
        
         
 
