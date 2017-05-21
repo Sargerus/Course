@@ -12,9 +12,6 @@ namespace Course.ViewModel
 {
     public class SearchTeachersViewModel : ViewModelBase
     {
-        private string booknumber;
-        private string lname;
-
         public class Teachers
         {
             public string Номер_трудовой_книжки { get; set; }
@@ -42,6 +39,10 @@ namespace Course.ViewModel
                  "Предметы: " + Предметы + "\r\n";
             }
         }
+        private string booknumber;
+        private string lname;
+
+        
         public string BookNumber
         { 
             get { return booknumber; }
@@ -78,20 +79,36 @@ namespace Course.ViewModel
                 else return;
             }
         }
+
+
         List<Teachers> buf;
         private List<Teachers> Total { get; set; }
         public List<Teachers> mainlist { get; set; }
+
+
         public GeneralCommand BackCommand { get; set; }
         public GeneralCommand SaveCommand { get; set; }
         public GeneralCommand SearchStudentsCommand { get; set; }
 
         public SearchTeachersViewModel()
         {
-            List<Преподаватели> buffer = (sqlcon.GetTeachers()).ToList();
+            ConnectCommands();
+            CreateTable();
+            Total = mainlist;
+            buf = null;
+        }
+
+        private void ConnectCommands()
+        {
             SaveCommand = new GeneralCommand(Save, null);
             SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
             BackCommand = new GeneralCommand(Back, null);
-            
+        }
+        private void CreateTable()
+        {
+            List<Преподаватели> buffer = (sqlcon.GetTeachers()).ToList();
+
+
 
             mainlist = new List<Teachers>(buffer.Count);
             int k = 0;
@@ -101,10 +118,7 @@ namespace Course.ViewModel
                                           buffer[k].Кафедра, buffer[k].Кабинет, buffer[k].Предметы));
                 k++;
             }
-            Total = mainlist;
-            buf = null;
         }
-
         public void Back()
         {
             var NewWindow = new StudentMain();
@@ -118,7 +132,6 @@ namespace Course.ViewModel
             Application.Current.MainWindow.Close();
             Application.Current.MainWindow = NewWindow;
         }
-
         public void Save()
         {
             try
@@ -158,7 +171,6 @@ namespace Course.ViewModel
             Application.Current.MainWindow.Close();
             Application.Current.MainWindow = NewWindow;
         }
-      
         private void RefreshDatabase()
         {
             buf = Total;

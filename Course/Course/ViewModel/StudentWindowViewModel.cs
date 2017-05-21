@@ -68,6 +68,8 @@ namespace Course.ViewModel
         
         public List<Студенты> s { get; set; }
         public List<Student> student { get; set; }
+
+
         public GeneralCommand ShowTeachersCommand { get; set; }
         public GeneralCommand ShowPerfomanceCommand { get; set; }
         public GeneralCommand SaveCommand { get; set; }
@@ -81,8 +83,13 @@ namespace Course.ViewModel
 
         public StudentWindowViewModel()
         {
+            ConnectCommands();          
+            ShowTable();
             
-            ShowTeachersCommand = new GeneralCommand(ShowTeachers,null);
+        }
+        private void ConnectCommands()
+        {
+            ShowTeachersCommand = new GeneralCommand(ShowTeachers, null);
             ShowPerfomanceCommand = new GeneralCommand(ShowPerfomance, null);
             SaveCommand = new GeneralCommand(Save, null);
             SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
@@ -92,18 +99,9 @@ namespace Course.ViewModel
             AttestationCommand = new GeneralCommand(Attestation, null);
             ChangeLangRusCommand = new GeneralCommand(ChangeLangRus, null);
             ChangeLangEngCommand = new GeneralCommand(ChangeLangEng, null);
-            
-            ShowTable();
-            
         }
         public void ChangeLangRus()
         {
-            //string str = param as string;
-            //switch (str)
-            //{
-            //    case "Rus": {MessageBox.Show("Rus"); break;}
-            //    case "Eng": { MessageBox.Show("Eng"); break; }
-            //
                 Language = new System.Globalization.CultureInfo("ru-RU");
         }
         public void ChangeLangEng()
@@ -256,7 +254,7 @@ namespace Course.ViewModel
            
                 
             int k = 0;
-            if (StudNumber != null || StudNumber != String.Empty)
+            if (StudNumber != null && StudNumber != String.Empty)
             {
                 while (k < JoinedTable.Count)
                 {

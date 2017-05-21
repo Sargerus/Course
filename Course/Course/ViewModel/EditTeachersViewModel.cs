@@ -13,6 +13,7 @@ namespace Course.ViewModel
     {
         private string lname;
         private string trudnumber;
+
         public class Teachers
         {
             public string Номер_трудовой_книжки { get; set; }
@@ -45,14 +46,19 @@ namespace Course.ViewModel
             }
         }
         List<Teachers> buf;
+
         private List<Teachers> Total { get; set; }
         public List<Teachers> mainlist { get; set; }
+        
+        
         public GeneralCommand BackCommand { get; set; }
         public GeneralCommand SaveCommand { get; set; }
         public GeneralCommand ClearCommand { get; set; }
         public GeneralCommand BeginSeaCommand { get; set; }
         public GeneralCommand SearchStudentsCommand { get; set; }
         public GeneralCommand SearchTeachersCommand { get; set; }
+       
+        
         public string LName
         {
             get { return lname; }
@@ -89,39 +95,18 @@ namespace Course.ViewModel
                 else return;
             }
         }
+
+
         public EditTeachersViewModel()
         {
-            SaveCommand = new GeneralCommand(Save, null);
-            BackCommand = new GeneralCommand(Back, null);
-            ClearCommand = new GeneralCommand(Clear, null);
-            SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
-            SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
-            
-            
-
-            var JoinedTable = (sqlcon.DBase.Преподаватели.Join(sqlcon.DBase.Предметы, p => p.Предметы, c => c.ИД_пердмета,
-               (p, c) => new
-               {
-                   Номер_трудовой_книжки       = p.Номер_трудовой_книжки,
-                   Фамилия_И_О_                = p.Фамилия_И_О_,
-                   Кафедра                     = p.Кафедра,
-                   Кабинет                     = p.Кабинет,
-                   Предметы                    = c.Название_предмета,
-                         
-               })).ToList();
-
-            mainlist = new List<Teachers>(JoinedTable.Count);
-            int k = 0;
-            while (k < JoinedTable.Count)
-            {
-                mainlist.Add(new Teachers(JoinedTable[k].Номер_трудовой_книжки, JoinedTable[k].Фамилия_И_О_, JoinedTable[k].Кафедра,
-                                     JoinedTable[k].Кабинет, JoinedTable[k].Предметы));
-                k++;
-            }
+            ConnectCommands();
+            CreateTable();
 
             Total = new List<Teachers>(mainlist.Count);
             Total = mainlist;
         }
+
+
         public void Save()
         {
             try
@@ -173,6 +158,38 @@ namespace Course.ViewModel
 
             mainlist = Total;
             OnPropertyChanged("mainlist");
+        }
+
+        private void CreateTable()
+        {
+            var JoinedTable = (sqlcon.DBase.Преподаватели.Join(sqlcon.DBase.Предметы, p => p.Предметы, c => c.ИД_пердмета,
+            (p, c) => new
+            {
+                Номер_трудовой_книжки = p.Номер_трудовой_книжки,
+                Фамилия_И_О_ = p.Фамилия_И_О_,
+                Кафедра = p.Кафедра,
+                Кабинет = p.Кабинет,
+                Предметы = c.Название_предмета,
+
+            })).ToList();
+
+            mainlist = new List<Teachers>(JoinedTable.Count);
+            int k = 0;
+            while (k < JoinedTable.Count)
+            {
+                mainlist.Add(new Teachers(JoinedTable[k].Номер_трудовой_книжки, JoinedTable[k].Фамилия_И_О_, JoinedTable[k].Кафедра,
+                                     JoinedTable[k].Кабинет, JoinedTable[k].Предметы));
+                k++;
+            }
+        }
+        private void ConnectCommands()
+        {
+            SaveCommand = new GeneralCommand(Save, null);
+            BackCommand = new GeneralCommand(Back, null);
+            ClearCommand = new GeneralCommand(Clear, null);
+            SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
+            SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
+            
         }
         public void RefreshDatabase()
         {

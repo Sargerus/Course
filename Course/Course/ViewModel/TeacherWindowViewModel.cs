@@ -47,6 +47,8 @@ namespace Course.ViewModel
 
         public List<Преподаватели> s { get; set; }
         public List<Teachers> teachers { get; set; }
+
+
         public GeneralCommand ShowStudentCommand { get; set; }
         public GeneralCommand ShowPerfomanceCommand { get; set; }
         public GeneralCommand SaveCommand { get; set; }
@@ -55,15 +57,19 @@ namespace Course.ViewModel
 
         public TeacherWindowViewModel()
         {
+            ConnectCommands();
+            ShowTable();
+
+        }
+
+        private void ConnectCommands()
+        {
             ShowStudentCommand = new GeneralCommand(ShowStudents, null);
             ShowPerfomanceCommand = new GeneralCommand(ShowPerfomance, null);
             SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
             SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
             SaveCommand = new GeneralCommand(Save, null);
-            ShowTable();
-
         }
-
         public void Save()
         {
             try

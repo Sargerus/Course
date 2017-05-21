@@ -261,6 +261,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Images\editstudents.jpg" />
+    <Resource Include="Resources\Images\editteachers.jpg" />
     <Resource Include="Resources\Images\main.JPG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

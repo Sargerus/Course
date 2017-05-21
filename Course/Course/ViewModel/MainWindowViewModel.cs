@@ -13,16 +13,6 @@ namespace Course.ViewModel
     {
         private string _login;
         private string _password;
-        public GeneralCommand BeginCheckCommand { get; set; }
-        public MainWindowViewModel()
-        {
-            
-            _login = "Dean";
-            _password = "dean";
-
-            Language = Course.Properties.Settings.Default.DefaultLanguage;
-            BeginCheckCommand = new GeneralCommand(LogAndPassToDatabase, IsLogAndPassValid);
-        }
 
         public string Login
         {
@@ -44,7 +34,25 @@ namespace Course.ViewModel
             }
         }
 
-      
+
+        public GeneralCommand BeginCheckCommand { get; set; }
+
+        public MainWindowViewModel()
+        {
+            
+            _login = "Dean";
+            _password = "dean";
+
+            Language = Course.Properties.Settings.Default.DefaultLanguage;
+            ConnectCommands();
+           
+        }
+       
+        
+        private void ConnectCommands()
+        {
+            BeginCheckCommand = new GeneralCommand(LogAndPassToDatabase, IsLogAndPassValid);
+        }
         private bool IsLogAndPassValid()
         {
             return !String.IsNullOrWhiteSpace(Login) && !String.IsNullOrWhiteSpace(Password);

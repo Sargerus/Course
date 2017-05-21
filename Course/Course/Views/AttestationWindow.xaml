@@ -34,8 +34,8 @@
             <TextBox Text="{Binding StudentCourse, Mode=TwoWay}" HorizontalAlignment="Left" Height="Auto" Margin="120,-25,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
             <TextBox Text="{Binding StudentGroup, Mode=TwoWay}" Height="23"  Margin="120,15,45,0"/>
             <Label Content="{DynamicResource m_Group}" HorizontalAlignment="Left" Margin="18,-25,0,0" VerticalAlignment="Top" Height="Auto" Width="Auto" FontSize="18"/>
-            <Button Content="{DynamicResource m_Search}" Command="{Binding BeginAttCommand}" Margin="-60,15,0,0" Width="80" Height="25"/>
-            <Button Content="{DynamicResource m_Clear}" Command="{Binding ClearCommand}" Margin="110,-25,0,0" Width="80" Height="25"/>
+            <Button x:Name="Searchb" Content="{DynamicResource m_Search}" Command="{Binding BeginAttCommand}" Margin="-60,15,0,0" Width="80" Height="25"/>
+            <Button x:Name="Clearb" Content="{DynamicResource m_Clear}" Command="{Binding ClearCommand}" Margin="110,-25,0,0" Width="80" Height="25"/>
             <Button Content="{DynamicResource m_Back}" Command="{Binding BackCommand}" HorizontalAlignment="Left" Width="150" Height="50" Margin="75,10,0,0"/>
 
 

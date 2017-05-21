@@ -1,4 +1,5 @@
-﻿using Course.ViewModel;
+﻿using Course.Model;
+using Course.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,13 @@ namespace Course.Views
         {
             DataContext = new AttestationWindowViewModel();
             InitializeComponent();
+
+            Button b = (Button)this.FindName("Searchb");
+            if (StudentWindowViewModel.AccesLevel == AccesLevels.User)
+                b.IsEnabled = false;
+            b = (Button)this.FindName("Clearb");
+            if (StudentWindowViewModel.AccesLevel == AccesLevels.User)
+                b.IsEnabled = false;
         }
     }
 }

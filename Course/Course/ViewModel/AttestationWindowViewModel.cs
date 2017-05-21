@@ -1,4 +1,5 @@
-﻿using Course.Views;
+﻿using Course.Model;
+using Course.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,6 +57,7 @@ namespace Course.ViewModel
         public GeneralCommand BackCommand { get; set; }
         public GeneralCommand SearchStudentsCommand { get; set; }
         public GeneralCommand SearchTeachersCommand { get; set; }
+        
        
         public string StudentFaculty { get; set; }
         public Nullable<short> StudentCourse { get; set; }
@@ -63,38 +65,16 @@ namespace Course.ViewModel
 
         public AttestationWindowViewModel()
         {
-            BeginAttCommand = new GeneralCommand(BeginAtt, null);
-            ClearCommand = new GeneralCommand(Clear, null);
-            BackCommand = new GeneralCommand(Back, null);
-            SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
-            SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
-            
-            var JoinedTable = (sqlcon.DBase.Студенты.Join(sqlcon.DBase.Оценки, p => p.Номер_студенческого_билета, c => c.Номер_студенческого_билета,
-               (p, c) => new
-               {
-                   Номер_студбилета = p.Номер_студенческого_билета,
-                   Фамилия = p.Фамилия,
-                   Факультет = p.Факультет,
-                   Курс = p.Курс,
-                   Группа = p.Группа,
-                   Название_предмета = c.Название_предмета,
-                   Оценка = c.Оценка
-               })).ToList();
 
-            mainlist = new List<Student>(JoinedTable.Count);
+            ConnectCommands();
+            CreateTable();
 
-            int k = 0;
-            while (k < JoinedTable.Count)
-            {
-                mainlist.Add(new Student(JoinedTable[k].Номер_студбилета, JoinedTable[k].Фамилия, JoinedTable[k].Факультет,
-                                       JoinedTable[k].Курс, JoinedTable[k].Группа, JoinedTable[k].Название_предмета, (float)JoinedTable[k].Оценка));
-                k++;
-            }
-            Total = mainlist;
+           
         }
 
         public void Clear()
         {
+           
             StudentCourse = null;
             StudentFaculty = String.Empty;
             StudentGroup = null;
@@ -104,8 +84,65 @@ namespace Course.ViewModel
             OnPropertyChanged("StudentFaculty");
             OnPropertyChanged("StudentGroup");
             OnPropertyChanged("mainlist");
-        }
 
+        }
+        private void ConnectCommands()
+        {
+            BeginAttCommand = new GeneralCommand(BeginAtt, null);
+            ClearCommand = new GeneralCommand(Clear, null);
+            BackCommand = new GeneralCommand(Back, null);
+            SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
+            SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
+        }
+        private void CreateTable()
+        {
+            var JoinedTable = (sqlcon.DBase.Студенты.Join(sqlcon.DBase.Оценки, p => p.Номер_студенческого_билета, c => c.Номер_студенческого_билета,
+              (p, c) => new
+              {
+                  Номер_студбилета = p.Номер_студенческого_билета,
+                  Фамилия = p.Фамилия,
+                  Факультет = p.Факультет,
+                  Курс = p.Курс,
+                  Группа = p.Группа,
+                  Название_предмета = c.Название_предмета,
+                  Оценка = c.Оценка
+              })).ToList();
+
+            mainlist = new List<Student>(JoinedTable.Count);
+
+            int k = 0;
+
+            if (AccesLevel == AccesLevels.User)
+            {
+
+                var buf = JoinedTable.Select(g => g).Where(g => g.Номер_студбилета == StudNumber).ToList();
+
+                if (buf.Count > 0)
+                    mainlist.Add(new Student(buf[0].Номер_студбилета, buf[0].Фамилия, buf[0].Факультет,
+                                           buf[0].Курс, buf[0].Группа, buf[0].Название_предмета, (float)buf[0].Оценка));
+
+                k++;
+
+                while (k != buf.Count())
+                {
+                    mainlist.Add(new Student(null, null, null,
+                                           null, null, buf[k].Название_предмета, (float)buf[k].Оценка));
+                    k++;
+
+                }
+
+            }
+            else
+                while (k < JoinedTable.Count)
+                {
+
+                    mainlist.Add(new Student(JoinedTable[k].Номер_студбилета, JoinedTable[k].Фамилия, JoinedTable[k].Факультет,
+                                           JoinedTable[k].Курс, JoinedTable[k].Группа, JoinedTable[k].Название_предмета, (float)JoinedTable[k].Оценка));
+                    k++;
+                }
+
+            Total = mainlist;
+        }
         public void Back()
         {
             var NewWindow = new StudentMain();

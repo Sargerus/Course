@@ -40,28 +40,24 @@ namespace Course.ViewModel
             public Nullable<short> Пропуски_всего { get; set; }
             public Nullable<double> Средняя_аттест { get; set; }
         }
+
+
         public PerfomanceViewModel()
+        {
+
+            ConnectCommands();
+            FromBufferToList();
+        }
+
+      
+
+
+        private void ConnectCommands()
         {
             ShowTeachersCommand = new GeneralCommand(ShowTeachers, null);
             ShowStudentCommand = new GeneralCommand(ShowStudents, null);
             SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
             SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
-            
-
-            FromBufferToList();
-        }
-        public void ShowTeachers()
-        {
-            var NewWindow = new TeachersWindow();
-
-            NewWindow.Top = Application.Current.MainWindow.Top;
-            NewWindow.Left = Application.Current.MainWindow.Left;
-            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
-            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
-         
-            NewWindow.Show();
-            Application.Current.MainWindow.Close();
-            Application.Current.MainWindow = NewWindow;
         }
         public void ShowStudents()
         {
@@ -84,10 +80,16 @@ namespace Course.ViewModel
 
             for (int i = 0; i < Buffer.Count; i++)
             {
-                if (StudNumber != null || StudNumber != String.Empty)
+                if (StudNumber != null && StudNumber != String.Empty)
                 {
                     if (Buffer[i].Номер_студенческого_билета == StudNumber)
                         Perfomance.Add(new BufferedPerfomance(Buffer[i].Номер_студенческого_билета, Buffer[i].Средняя_оценка_за_всё_время,
+                            Buffer[i].Средняя_оценка_за_поледнюю_сессию, Buffer[i].Количество_пересдач_за_всё_время,
+                            Buffer[i].Количество_пропусков_за_всё_время, Buffer[i].Средняя_оценка_за_промежуточную_аттестацию));
+                }
+                else
+                {
+                    Perfomance.Add(new BufferedPerfomance(Buffer[i].Номер_студенческого_билета, Buffer[i].Средняя_оценка_за_всё_время,
                             Buffer[i].Средняя_оценка_за_поледнюю_сессию, Buffer[i].Количество_пересдач_за_всё_время,
                             Buffer[i].Количество_пропусков_за_всё_время, Buffer[i].Средняя_оценка_за_промежуточную_аттестацию));
                 }
@@ -113,6 +115,19 @@ namespace Course.ViewModel
             NewWindow.Left = Application.Current.MainWindow.Left;
             NewWindow.Height = Application.Current.MainWindow.ActualHeight;
             NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+            NewWindow.Show();
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = NewWindow;
+        }
+        public void ShowTeachers()
+        {
+            var NewWindow = new TeachersWindow();
+
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
+            NewWindow.Height = Application.Current.MainWindow.ActualHeight;
+            NewWindow.Width = Application.Current.MainWindow.ActualWidth;
+
             NewWindow.Show();
             Application.Current.MainWindow.Close();
             Application.Current.MainWindow = NewWindow;
