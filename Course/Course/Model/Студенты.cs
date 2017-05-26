@@ -17,7 +17,6 @@ namespace Course.Model
         public Студенты()
         {
             this.Отработки = new HashSet<Отработки>();
-            this.Оценки = new HashSet<Оценки>();
         }
     
         public string Номер_студенческого_билета { get; set; }
@@ -31,6 +30,5 @@ namespace Course.Model
         public virtual ICollection<Отработки> Отработки { get; set; }
         public virtual Факультеты Факультеты { get; set; }
         public virtual УСПЕВАЕМОСТЬ УСПЕВАЕМОСТЬ { get; set; }
-        public virtual ICollection<Оценки> Оценки { get; set; }
     }
 }

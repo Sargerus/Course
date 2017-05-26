@@ -13,10 +13,10 @@ namespace Course.Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class UniverModel : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public UniverModel()
+            : base("name=UniverModel")
         {
         }
     
@@ -32,7 +32,6 @@ namespace Course.Model
         public virtual DbSet<Студенты> Студенты { get; set; }
         public virtual DbSet<УСПЕВАЕМОСТЬ> УСПЕВАЕМОСТЬ { get; set; }
         public virtual DbSet<Факультеты> Факультеты { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Оценки> Оценки { get; set; }
     }
 }

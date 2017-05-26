@@ -17,15 +17,15 @@ namespace Course.Model
         public Преподаватели()
         {
             this.Отработки = new HashSet<Отработки>();
+            this.Предметы = new HashSet<Предметы>();
         }
     
         public string Номер_трудовой_книжки { get; set; }
         public string Фамилия_И_О_ { get; set; }
         public string Кафедра { get; set; }
         public string Кабинет { get; set; }
-        public string Предметы { get; set; }
     
         public virtual ICollection<Отработки> Отработки { get; set; }
-        public virtual Предметы Предметы1 { get; set; }
+        public virtual ICollection<Предметы> Предметы { get; set; }
     }
 }

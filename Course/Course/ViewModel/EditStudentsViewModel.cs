@@ -4,7 +4,9 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,12 +16,17 @@ namespace Course.ViewModel
 {
     public class EditStudentsViewModel : ViewModelBase
     {
+        
         private string lname;
         private string studnumber;
         private int currentvalue;
         private string selectedType;
+        public Student selecteditem { get; set; }
+        public ObservableCollection<string> Facultys { get; private set; }
+        
        
-     
+    
+
         List<Student> buf;
 
 
@@ -27,10 +34,16 @@ namespace Course.ViewModel
         public GeneralCommand SearchTeachersCommand { get; set; }
         public GeneralCommand ResetSliderCommand { get; set; }
         public GeneralCommand BackCommand { get; set; }
+        public GeneralCommand DeleteFromGridCommand { get; set; }
+        public GeneralCommand AddNewCommand { get;set;}
+        
 
 
         private List<Student> Total { get; set; }
         public List<Student> mainlist { get; set; }
+        public string numstud { get; set; }
+        public string Surname { get; set; }
+        
 
 
         public ICollection<string> StudentsType { get; set; }
@@ -149,6 +162,7 @@ namespace Course.ViewModel
         public EditStudentsViewModel()
         {
 
+            InitializeCollections();
             ConnectCommands();
             CreateTable();
               
@@ -169,6 +183,21 @@ namespace Course.ViewModel
             BackCommand = new GeneralCommand(Back, null);
             SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
             SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
+            DeleteFromGridCommand = new GeneralCommand(DeleteFromGrid,null);
+            AddNewCommand = new GeneralCommand(AddNew, null);
+            }
+        
+        public void InitializeCollections()
+        {
+            Facultys = new ObservableCollection<string>
+            {
+               "ФИТ",
+               "ПиМ",
+               "ИЭФ",
+               "ХТиТ",
+               "ЛХ",
+               "ТОВ"
+            };
             
         }
         private void CreateTable()
@@ -198,6 +227,53 @@ namespace Course.ViewModel
             Total = new List<Student>(mainlist.Count);
             Total = mainlist;
         }
+
+        private void DeleteFromGrid()
+        {
+
+            System.Media.SystemSounds.Exclamation.Play();
+           MessageBoxResult result =  MessageBox.Show("Are you sure you want to delete all records about this puple?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+           if (result == MessageBoxResult.Yes)
+           {
+
+               var query = mainlist.Find(g => g.Номер_студенческого_билета.Equals(selecteditem.Номер_студенческого_билета));
+
+
+               var stud = sqlcon.DBase.Set<Студенты>();
+               var work = sqlcon.DBase.Set<Отработки>();
+               var perfomance = sqlcon.DBase.Set<УСПЕВАЕМОСТЬ>();
+
+
+               foreach (var g in sqlcon.DBase.Отработки)
+               {
+                   if (g.Студент__номер_студенческого_билета_.Equals(query.Номер_студенческого_билета))
+                       work.Remove(g);
+               }
+
+
+               foreach (var g in sqlcon.DBase.УСПЕВАЕМОСТЬ)
+               {
+                   if (g.Номер_студенческого_билета.Equals(query.Номер_студенческого_билета))
+                       perfomance.Remove(g);
+               }
+
+               var y = stud.Find(query.Номер_студенческого_билета);
+               if (y != null)
+                   stud.Remove(y);
+
+
+
+
+               sqlcon.DBase.SaveChanges();
+               RefreshDatabase();
+           }
+        }
+        private void AddToTable()
+        {
+            Студенты sk = new Студенты();
+            
+        }
+        
         public void Back()
         {
             var NewWindow = new StudentMain();
@@ -219,11 +295,15 @@ namespace Course.ViewModel
         }
         private void RefreshDatabase()
         {
+            sqlcon.DBase.ChangeTracker.DetectChanges();
+            CreateTable();
+
             buf = Total;
             LName = lname;
             StudNumber = studnumber;
             CurrentValue = currentvalue;
             SelectedType = selectedType;
+            selecteditem = null;
 
             mainlist = buf;
             OnPropertyChanged("mainlist");
@@ -266,6 +346,14 @@ namespace Course.ViewModel
             NewWindow.Show();
             Application.Current.MainWindow.Close();
             Application.Current.MainWindow = NewWindow;
+        }
+
+        public void AddNew()
+        {
+            var NewWindow = new AddStudentWindow();
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
+            NewWindow.Show();
         }
         public void SearchTeacher()
         {

@@ -16,14 +16,12 @@ namespace Course.Model
     {
         public Предметы()
         {
-            this.Отработки = new HashSet<Отработки>();
             this.Преподаватели = new HashSet<Преподаватели>();
         }
     
-        public string ИД_пердмета { get; set; }
         public string Название_предмета { get; set; }
+        public string Код_предмета { get; set; }
     
-        public virtual ICollection<Отработки> Отработки { get; set; }
         public virtual ICollection<Преподаватели> Преподаватели { get; set; }
     }
 }

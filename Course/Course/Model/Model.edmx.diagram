@@ -4,23 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="60f6b4db4b064fd1881a4af9022ab8bd" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.Users" Width="1.5" PointX="7.75" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Отработки" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Предметы" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Преподаватели" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Студенты" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.УСПЕВАЕМОСТЬ" Width="1.5" PointX="5.25" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Факультеты" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
-        <AssociationConnector Association="Model.FK_Отработки_Предметы" ManuallyRouted="false" />
+      <Diagram DiagramId="96598bd22ec14e828edef0c86b9beb4c" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Users" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Отработки" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Предметы" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Преподаватели" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Студенты" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.УСПЕВАЕМОСТЬ" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Факультеты" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Оценки" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_Отработки_Преподаватели" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Отработки_Студенты" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_Преподаватели_Предметы" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__Студенты__Факуль__6754599E" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_УСПЕВАЕМОСТЬ_Студенты" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="7.375" PointY="5.125" />
-        <EntityTypeShape EntityType="Model.Оценки" Width="1.5" PointX="5.25" PointY="0.75" />
-        <AssociationConnector Association="Model.FK_Оценки_Студенты" />
+        <AssociationConnector Association="Model.Предметы_Преподаватели" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

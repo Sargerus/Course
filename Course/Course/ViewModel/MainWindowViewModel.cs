@@ -81,10 +81,10 @@ namespace Course.ViewModel
         private void LogAndPassToDatabase()
         {
             
-            Entities me = new Entities();
-            me.ChangeTracker.DetectChanges();
+           
+            sqlcon.DBase.ChangeTracker.DetectChanges();
 
-            var s = (from g in me.Users where g.UserName == this.Login select g).ToList();
+            var s = (from g in sqlcon.DBase.Users where g.UserName == this.Login select g).ToList();
             
             string str = GetHashString(Password);
             bool flag = false;

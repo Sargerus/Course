@@ -114,8 +114,8 @@ namespace Course.ViewModel
             int k = 0;
             while (k < buffer.Count)
             {
-                mainlist.Add(new Teachers(buffer[k].Номер_трудовой_книжки, buffer[k].Фамилия_И_О_,
-                                          buffer[k].Кафедра, buffer[k].Кабинет, buffer[k].Предметы));
+                //mainlist.Add(new Teachers(buffer[k].Номер_трудовой_книжки, buffer[k].Фамилия_И_О_,
+                //                          buffer[k].Кафедра, buffer[k].Кабинет, buffer[k].Предметы));
                 k++;
             }
         }

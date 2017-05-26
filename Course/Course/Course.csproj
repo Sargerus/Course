@@ -84,9 +84,6 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\SqlConnection.cs" />
-    <Compile Include="Model\sysdiagrams.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Model\Users.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -111,6 +108,8 @@
     <Compile Include="Model\Факультеты.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AddStudentWindowViewModel.cs" />
+    <Compile Include="ViewModel\AddTeacherWindowViewModel.cs" />
     <Compile Include="ViewModel\AttestationWindowViewModel.cs" />
     <Compile Include="ViewModel\EditStudentsViewModel.cs" />
     <Compile Include="ViewModel\EditTeachersViewModel.cs" />
@@ -123,6 +122,12 @@
     <Compile Include="ViewModel\StudentWindowViewModel.cs" />
     <Compile Include="ViewModel\TeacherWindowViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="Views\AddStudentWindow.xaml.cs">
+      <DependentUpon>AddStudentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddTeacherWindow.xaml.cs">
+      <DependentUpon>AddTeacherWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AttestationWindow.xaml.cs">
       <DependentUpon>AttestationWindow.xaml</DependentUpon>
     </Compile>
@@ -190,6 +195,14 @@
     <Page Include="Resources\TextBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AddStudentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddTeacherWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AttestationWindow.xaml">
       <SubType>Designer</SubType>
@@ -271,6 +284,11 @@
     <Resource Include="Resources\Images\students.jpg" />
     <Resource Include="Resources\Images\teachers.jpg" />
     <Resource Include="iconnew.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Model\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model.edmx</DependentUpon>
@@ -282,10 +300,6 @@
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

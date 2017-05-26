@@ -36,6 +36,9 @@
             <Button Content="{DynamicResource m_Search}" Command="{Binding BeginSeaCommand}" Margin="-60,15,0,0" Width="80" Height="25"/>
             <Button Content="{DynamicResource m_Clear}" Command="{Binding ClearCommand}" Margin="110,-25,0,0" Width="80" Height="25"/>
 
+            <Button Content="{DynamicResource m_Back}" Command="{Binding AddNewCommand}" HorizontalAlignment="Left" Margin="70,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="121" Height="41"></Button>
+            <Button Content="{DynamicResource m_Back}" Command="{Binding BackCommand}" HorizontalAlignment="Left" Margin="70,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="121" Height="41"/>
+
 
 
         </StackPanel>
@@ -53,7 +56,7 @@
                       CanUserDeleteRows="True"
                       CanUserSortColumns="True"
                       IsReadOnly="False"/>
+           
         </StackPanel>
-        <Button Content="{DynamicResource m_Back}" Command="{Binding BackCommand}" HorizontalAlignment="Left" Margin="90,150,0,0" Grid.Row="1" VerticalAlignment="Top" Width="121" Height="41"/>
     </Grid>
 </Window>

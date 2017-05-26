@@ -21,7 +21,6 @@ namespace Course.Model
         public Nullable<System.DateTime> Дата_отработки { get; set; }
         public string Преподаватель { get; set; }
     
-        public virtual Предметы Предметы { get; set; }
         public virtual Преподаватели Преподаватели { get; set; }
         public virtual Студенты Студенты { get; set; }
     }

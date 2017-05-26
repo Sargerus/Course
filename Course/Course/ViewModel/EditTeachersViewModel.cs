@@ -11,6 +11,11 @@ namespace Course.ViewModel
 {
     public class EditTeachersViewModel : ViewModelBase
     {
+
+       
+    
+
+
         private string lname;
         private string trudnumber;
 
@@ -22,6 +27,7 @@ namespace Course.ViewModel
             public string Кабинет { get; set; }
             public string Предметы { get; set; }
 
+            
             public Teachers()
             {
 
@@ -57,7 +63,7 @@ namespace Course.ViewModel
         public GeneralCommand BeginSeaCommand { get; set; }
         public GeneralCommand SearchStudentsCommand { get; set; }
         public GeneralCommand SearchTeachersCommand { get; set; }
-       
+        public GeneralCommand AddNewCommand { get; set; }       
         
         public string LName
         {
@@ -162,25 +168,32 @@ namespace Course.ViewModel
 
         private void CreateTable()
         {
-            var JoinedTable = (sqlcon.DBase.Преподаватели.Join(sqlcon.DBase.Предметы, p => p.Предметы, c => c.ИД_пердмета,
-            (p, c) => new
-            {
-                Номер_трудовой_книжки = p.Номер_трудовой_книжки,
-                Фамилия_И_О_ = p.Фамилия_И_О_,
-                Кафедра = p.Кафедра,
-                Кабинет = p.Кабинет,
-                Предметы = c.Название_предмета,
+            var table = (from a in sqlcon.DBase.Преподаватели
+                         from b in a.Предметы
+                         join c in sqlcon.DBase.Предметы on b.Название_предмета equals c.Название_предмета
+                         select new
+                         {
+                             Numb = a.Номер_трудовой_книжки,
+                             Fam = a.Фамилия_И_О_,
+                             Kaf = a.Кафедра,
+                             Kab = a.Кабинет,
+                             Naz = c.Название_предмета
+                         }).ToList();
 
-            })).ToList();
+            mainlist = new List<Teachers>(table.Count());
 
-            mainlist = new List<Teachers>(JoinedTable.Count);
             int k = 0;
-            while (k < JoinedTable.Count)
+            mainlist.Add(new Teachers(table[k].Numb, table[k].Fam,
+                                       table[k].Kaf, table[k].Kab, table[k].Naz));
+            k++;
+
+            while (k < table.Count())
             {
-                mainlist.Add(new Teachers(JoinedTable[k].Номер_трудовой_книжки, JoinedTable[k].Фамилия_И_О_, JoinedTable[k].Кафедра,
-                                     JoinedTable[k].Кабинет, JoinedTable[k].Предметы));
+                if (table[k - 1].Fam.Equals(table[k].Fam))
+                    mainlist.Add(new Teachers(null, null,
+                                             null, null, table[k].Naz));
                 k++;
-            }
+            }           
         }
         private void ConnectCommands()
         {
@@ -189,7 +202,15 @@ namespace Course.ViewModel
             ClearCommand = new GeneralCommand(Clear, null);
             SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
             SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
-            
+            AddNewCommand = new GeneralCommand(AddNew, null);
+        }
+
+        public void AddNew()
+        {
+            var NewWindow = new AddTeacherWindow();
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
+            NewWindow.Show();
         }
         public void RefreshDatabase()
         {

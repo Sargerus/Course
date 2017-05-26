@@ -8,10 +8,10 @@ namespace Course.Model
 {
     public class SqlConnection : BaseConneciton
     {
-        public Entities DBase;
+        public UniverModel DBase;
         public SqlConnection()
         {
-            DBase = new Entities();
+            DBase = new UniverModel();
         }
         public IQueryable<Студенты> GetStudents()
         {

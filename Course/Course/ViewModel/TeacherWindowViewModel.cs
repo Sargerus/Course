@@ -154,16 +154,34 @@ namespace Course.ViewModel
         }
         private void ShowTable()
         {
-            s = (sqlcon.GetTeachers()).ToList();
 
-            teachers = new List<Teachers>(s.Count);
+            var table = (from a in sqlcon.DBase.Преподаватели
+                        from b in a.Предметы
+                        join c in sqlcon.DBase.Предметы on b.Название_предмета equals c.Название_предмета  
+                        select new  
+                        {
+                        Numb = a.Номер_трудовой_книжки,
+                        Fam = a.Фамилия_И_О_, 
+                        Kaf = a.Кафедра, 
+                        Kab = a.Кабинет,
+                        Naz = c.Название_предмета
+                        }).ToList();
+
+            teachers = new List<Teachers>(table.Count());
+
             int k = 0;
-            while (k < s.Count)
+              teachers.Add(new Teachers(table[k].Numb, table[k].Fam,
+                                         table[k].Kaf, table[k].Kab, table[k].Naz));
+              k++;
+
+            while (k < table.Count())
             {
-                teachers.Add(new Teachers(s[k].Номер_трудовой_книжки, s[k].Фамилия_И_О_,
-                                          s[k].Кафедра, s[k].Кабинет, s[k].Предметы));
+                if(table[k-1].Fam.Equals(table[k].Fam))
+                teachers.Add(new Teachers(null, null,
+                                         null, null, table[k].Naz));
                 k++;
             }
+   
         }
     }
 }
