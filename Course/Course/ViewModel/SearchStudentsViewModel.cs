@@ -16,6 +16,18 @@ namespace Course.ViewModel
 {
     public class SearchStudentsViewModel : ViewModelBase
     {
+
+        public void ChangeLangRus()
+        {
+            Language = new System.Globalization.CultureInfo("ru-RU");
+        }
+        public void ChangeLangEng()
+        {
+            Language = new System.Globalization.CultureInfo("en-US");
+
+        }
+        public GeneralCommand ChangeLangRusCommand { get; set; }
+        public GeneralCommand ChangeLangEngCommand { get; set; }
         public class Student
         {
             public string Номер_студенческого_билета { get; set; }
@@ -125,17 +137,7 @@ namespace Course.ViewModel
         }
        
 
-       //public void ResetSlider()
-       // {
-       //     currentvalue = 0;
-
-       //     RefreshDatabase();
-       // }
-
-      
-      
-        
-       // public GeneralCommand ResetSliderCommand { get; set; }
+     
         public GeneralCommand BackCommand { get; set; }
         public GeneralCommand SaveCommand { get; set; }
         public GeneralCommand SearchTeachersCommand { get; set; }
@@ -154,9 +156,9 @@ namespace Course.ViewModel
 
             StudentsType = new Collection<string>
                                     { 
-                                        "Все",
-                                        "Отличники", 
-                                        "Неотличники", 
+                                        "All",
+                                        "Excellent", 
+                                        "Bad", 
                                     };
             SelectedType = StudentsType.First();
 
@@ -164,10 +166,11 @@ namespace Course.ViewModel
 
         private void ConnectCommands()
         {
-            //  ResetSliderCommand = new GeneralCommand(ResetSlider);
             BackCommand = new GeneralCommand(Back, null);
             SaveCommand = new GeneralCommand(Save, null);
             SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
+            ChangeLangEngCommand = new GeneralCommand(ChangeLangEng, null);
+            ChangeLangRusCommand = new GeneralCommand(ChangeLangRus, null);
         }
 
         private void CreateTable()
@@ -182,7 +185,7 @@ namespace Course.ViewModel
                    Курс = p.Курс,
                    Группа = p.Группа,
                    Пропусков = c.Количество_пропусков_за_всё_время,
-                   Средняя_оценка = c.Средняя_оценка_за_всё_время
+                   Средняя_оценка = c.Средняя_оценка_за_поледнюю_сессию
                })).ToList();
 
             mainlist = new List<Student>(JoinedTable.Count);
@@ -260,11 +263,11 @@ namespace Course.ViewModel
                     return;
                 }
 
-                if(selectedType=="Все")
+                if(selectedType=="All")
                     buf = (from g in buf select g).ToList();
-                if (selectedType == "Отличники")
+                if (selectedType == "Excellent")
                     buf = (from g in buf where g.Средняя_оценка_за_всё_время>=8 select g).ToList();
-                if (selectedType == "Неотличники")
+                if (selectedType == "Bad")
                     buf = (from g in buf where g.Средняя_оценка_за_всё_время <= 5 select g).ToList();
                 // Logic for saving to database
             }

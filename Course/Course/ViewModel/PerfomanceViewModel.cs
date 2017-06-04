@@ -11,10 +11,23 @@ namespace Course.ViewModel
 {
     public class PerfomanceViewModel : ViewModelBase
     {
+
+        public void ChangeLangRus()
+        {
+            Language = new System.Globalization.CultureInfo("ru-RU");
+        }
+        public void ChangeLangEng()
+        {
+            Language = new System.Globalization.CultureInfo("en-US");
+
+        }
+        public GeneralCommand ChangeLangRusCommand { get; set; }
+        public GeneralCommand ChangeLangEngCommand { get; set; }
         public GeneralCommand ShowStudentCommand { get; set; }
         public GeneralCommand ShowTeachersCommand { get; set; }
         public GeneralCommand SearchStudentsCommand { get; set; }
         public GeneralCommand SearchTeachersCommand { get; set; }
+       
        
 
   
@@ -22,11 +35,11 @@ namespace Course.ViewModel
         private List<УСПЕВАЕМОСТЬ> Buffer { get; set; }
         public class BufferedPerfomance
         {
-            public BufferedPerfomance(string numb, Nullable<double> sozvv, Nullable<double> sozps, Nullable<short> kpzvv,
+            public BufferedPerfomance(string numb, string fio, Nullable<double> sozps, Nullable<short> kpzvv,
                 Nullable<short> kprzvv, Nullable<double> sozpa)
             {
                 Номер_студбилета = numb;
-                Средняя_оценка_всего = sozvv;
+                Фамилия = fio;
                 Средняя_оценка_сессия = sozps;
                 Пересдачи_всего = kpzvv;
                 Пропуски_всего = kprzvv;
@@ -34,7 +47,7 @@ namespace Course.ViewModel
                     
             }
             public string Номер_студбилета { get; set; }
-            public Nullable<double> Средняя_оценка_всего{ get; set; }
+            public string Фамилия { get; set; }
             public Nullable<double> Средняя_оценка_сессия { get; set; }
             public Nullable<short> Пересдачи_всего { get; set; }
             public Nullable<short> Пропуски_всего { get; set; }
@@ -58,7 +71,11 @@ namespace Course.ViewModel
             ShowStudentCommand = new GeneralCommand(ShowStudents, null);
             SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
             SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
+            ChangeLangEngCommand = new GeneralCommand(ChangeLangEng, null);
+            ChangeLangRusCommand = new GeneralCommand(ChangeLangRus, null);
+           
         }
+       
         public void ShowStudents()
         {
             var NewWindow = new StudentMain();
@@ -83,13 +100,13 @@ namespace Course.ViewModel
                 if (StudNumber != null && StudNumber != String.Empty)
                 {
                     if (Buffer[i].Номер_студенческого_билета == StudNumber)
-                        Perfomance.Add(new BufferedPerfomance(Buffer[i].Номер_студенческого_билета, Buffer[i].Средняя_оценка_за_всё_время,
+                        Perfomance.Add(new BufferedPerfomance(Buffer[i].Номер_студенческого_билета, Buffer[i].Фамилия,
                             Buffer[i].Средняя_оценка_за_поледнюю_сессию, Buffer[i].Количество_пересдач_за_всё_время,
                             Buffer[i].Количество_пропусков_за_всё_время, Buffer[i].Средняя_оценка_за_промежуточную_аттестацию));
                 }
                 else
                 {
-                    Perfomance.Add(new BufferedPerfomance(Buffer[i].Номер_студенческого_билета, Buffer[i].Средняя_оценка_за_всё_время,
+                    Perfomance.Add(new BufferedPerfomance(Buffer[i].Номер_студенческого_билета, Buffer[i].Фамилия,
                             Buffer[i].Средняя_оценка_за_поледнюю_сессию, Buffer[i].Количество_пересдач_за_всё_время,
                             Buffer[i].Количество_пропусков_за_всё_время, Buffer[i].Средняя_оценка_за_промежуточную_аттестацию));
                 }

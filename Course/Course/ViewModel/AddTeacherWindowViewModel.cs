@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Course.ViewModel
 {
@@ -21,16 +22,24 @@ namespace Course.ViewModel
        }
        public void AddTeacher()
        {
-           Преподаватели me = new Преподаватели();
-           me.Кабинет = addkab;
-           me.Кафедра = addkaf;
-           me.Номер_трудовой_книжки = addworknumb;
-           me.Фамилия_И_О_ = addfio;
+           try
+           {
+               Преподаватели me = new Преподаватели();
+               me.Кабинет = addkab;
+               me.Кафедра = addkaf;
+               me.Номер_трудовой_книжки = addworknumb;
+               me.Фамилия_И_О_ = addfio;
 
-           var s = sqlcon.DBase.Set<Преподаватели>();
-           s.Add(me);
+               var s = sqlcon.DBase.Set<Преподаватели>();
+               s.Add(me);
 
-           sqlcon.DBase.SaveChanges();
+               sqlcon.DBase.SaveChanges();
+           }
+           catch
+           {
+               System.Media.SystemSounds.Exclamation.Play();
+               MessageBox.Show("Error in data!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+           }
        }
     }
 }

@@ -1,26 +1,26 @@
 ﻿<Window x:Class="Course.Views.AddStudentWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="AddStudentWindow" Height="300" Width="300">
+        Title="{DynamicResource m_NewStudent}" Height="350" Width="300">
     <Grid>
 
 
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="255" Height="220" >
-            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="Stud" Width="Auto" Height="Auto"></Label>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="255" Height="Auto" >
+            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="{DynamicResource m_StudNumb}" Width="Auto" Height="Auto"></Label>
             <TextBox Text="{Binding addstudnumb}" Width="150" Margin="90,-20,0,0"></TextBox>
-            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="Fam" Width="Auto" Height="Auto"></Label>
+            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="{DynamicResource m_Surname}" Width="Auto" Height="Auto"></Label>
             <TextBox Text="{Binding addlname}" Width="150" Margin="90,-20,0,0"></TextBox>
-            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="Fac" Width="Auto" Height="Auto"></Label>
+            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="{DynamicResource m_Faculty}" Width="Auto" Height="Auto"></Label>
             <ComboBox SelectedItem="{Binding addselproff}" ItemsSource="{Binding Facultys}" Width="150" Margin="90,-20,0,0"></ComboBox>
-            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="Course" Width="Auto" Height="Auto"></Label>
+            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="{DynamicResource m_Course}" Width="Auto" Height="Auto"></Label>
             <TextBox Text="{Binding addcourse}" Width="150" Margin="90,-20,0,0"></TextBox>
-            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="Group" Width="Auto" Height="Auto"></Label>
+            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="{DynamicResource m_Group}" Width="Auto" Height="Auto"></Label>
             <TextBox Text="{Binding addgroup}" Width="150" Margin="90,-20,0,0"></TextBox>
-            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="podgroup" Width="Auto" Height="Auto"></Label>
+            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="{DynamicResource m_SubGroup}" Width="Auto" Height="Auto"></Label>
             <TextBox Text="{Binding addsgroup}" Width="150" Margin="90,-20,0,0"></TextBox>
-            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="spec" Width="Auto" Height="Auto"></Label>
-            <TextBox Text="{Binding proff}" Width="150" Margin="90,-20,0,0"></TextBox>
-            <Button Content="Add" Command="{Binding AddStudentCommand}"></Button>
+            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="{DynamicResource m_Proffesion}" Width="Auto" Height="Auto"></Label>
+            <TextBox Text="{Binding addproff}" Width="150" Margin="90,-20,0,0"></TextBox>
+            <Button Content="{DynamicResource m_Confirmed}" Command="{Binding AddStudentCommand}" Margin="5" Height="Auto"></Button>
 
 
 

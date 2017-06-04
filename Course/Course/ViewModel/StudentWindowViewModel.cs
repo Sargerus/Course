@@ -78,9 +78,7 @@ namespace Course.ViewModel
         public GeneralCommand EditTeachersCommand { get; set; }
         public GeneralCommand EditStudentsCommand { get; set; }
         public GeneralCommand AttestationCommand { get; set; }
-        public GeneralCommand ChangeLangRusCommand { get; set; }
-        public GeneralCommand ChangeLangEngCommand { get; set; }
-
+       
         public StudentWindowViewModel()
         {
             ConnectCommands();          
@@ -109,6 +107,9 @@ namespace Course.ViewModel
                 Language = new System.Globalization.CultureInfo("en-US");
         
         }
+        public GeneralCommand ChangeLangRusCommand { get; set; }
+        public GeneralCommand ChangeLangEngCommand { get; set; }
+
         public void EditTeachers()
         {
             if (AccesLevel == AccesLevels.Dean)
@@ -245,7 +246,7 @@ namespace Course.ViewModel
                      Курс = p.Курс,
                      Группа = p.Группа,
                      Пропусков = c.Количество_пропусков_за_всё_время,
-                     Средняя_оценка = c.Средняя_оценка_за_всё_время
+                     Средняя_оценка = c.Средняя_оценка_за_поледнюю_сессию
                  })).ToList();
             
 

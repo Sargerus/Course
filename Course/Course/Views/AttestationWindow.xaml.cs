@@ -32,6 +32,9 @@ namespace Course.Views
             b = (Button)this.FindName("Clearb");
             if (StudentWindowViewModel.AccesLevel == AccesLevels.User)
                 b.IsEnabled = false;
+            b = (Button)this.FindName("NotForUsers");
+            if (StudentWindowViewModel.AccesLevel == AccesLevels.User)
+                b.IsEnabled = false;
         }
     }
 }

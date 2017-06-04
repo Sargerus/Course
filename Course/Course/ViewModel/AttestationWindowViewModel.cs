@@ -11,7 +11,7 @@ namespace Course.ViewModel
 {
     public class AttestationWindowViewModel : ViewModelBase
     {
-        public class Student
+        public class Student:IComparable
         {
             public string Номер_студенческого_билета { get; set; }
             public string Фамилия { get; set; }
@@ -48,6 +48,13 @@ namespace Course.ViewModel
             }
 
 
+
+            public int CompareTo(object obj)
+            {
+                Student x = obj as Student;
+                return this.Фамилия.CompareTo(x.Фамилия);
+                 
+            }
         }
 
         private List<Student> Total { get; set; }
@@ -57,7 +64,19 @@ namespace Course.ViewModel
         public GeneralCommand BackCommand { get; set; }
         public GeneralCommand SearchStudentsCommand { get; set; }
         public GeneralCommand SearchTeachersCommand { get; set; }
-        
+        public GeneralCommand AddMarkCommand { get; set; }
+        public void ChangeLangRus()
+        {
+            Language = new System.Globalization.CultureInfo("ru-RU");
+        }
+        public void ChangeLangEng()
+        {
+            Language = new System.Globalization.CultureInfo("en-US");
+
+        }
+        public GeneralCommand ChangeLangRusCommand { get; set; }
+        public GeneralCommand ChangeLangEngCommand { get; set; }
+
        
         public string StudentFaculty { get; set; }
         public Nullable<short> StudentCourse { get; set; }
@@ -93,6 +112,17 @@ namespace Course.ViewModel
             BackCommand = new GeneralCommand(Back, null);
             SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
             SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
+            ChangeLangEngCommand = new GeneralCommand(ChangeLangEng, null);
+            ChangeLangRusCommand = new GeneralCommand(ChangeLangRus, null);
+            AddMarkCommand = new GeneralCommand(AddMark, null);
+        }
+        private void AddMark()
+        {
+            var NewWindow = new AddMarkWindow();
+            NewWindow.Top = Application.Current.MainWindow.Top;
+            NewWindow.Left = Application.Current.MainWindow.Left;
+            NewWindow.Show();
+
         }
         private void CreateTable()
         {
@@ -111,7 +141,7 @@ namespace Course.ViewModel
             mainlist = new List<Student>(JoinedTable.Count);
 
             int k = 0;
-
+            
             if (AccesLevel == AccesLevels.User)
             {
 
@@ -132,15 +162,28 @@ namespace Course.ViewModel
                 }
 
             }
-            else
-                while (k < JoinedTable.Count)
-                {
-
+            else 
+                while (k < JoinedTable.Count) {
+ 
                     mainlist.Add(new Student(JoinedTable[k].Номер_студбилета, JoinedTable[k].Фамилия, JoinedTable[k].Факультет,
                                            JoinedTable[k].Курс, JoinedTable[k].Группа, JoinedTable[k].Название_предмета, (float)JoinedTable[k].Оценка));
                     k++;
                 }
 
+            mainlist.Sort();
+            Student z = mainlist[0];
+            for (int i = 1; i < mainlist.Count; i++)
+            {
+                if (mainlist[i].Номер_студенческого_билета.Equals(z.Номер_студенческого_билета))
+                {
+                    mainlist[i].Номер_студенческого_билета = null;
+                    mainlist[i].Фамилия = null;
+                    mainlist[i].Факультет = null;
+                    mainlist[i].Курс = null;
+                    mainlist[i].Группа = null;
+                }
+                else z = mainlist[i];
+            }
             Total = mainlist;
         }
         public void Back()

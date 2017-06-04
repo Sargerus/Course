@@ -22,7 +22,19 @@ namespace Course.ViewModel
         private int currentvalue;
         private string selectedType;
         public Student selecteditem { get; set; }
-        public ObservableCollection<string> Facultys { get; private set; }
+
+        public void ChangeLangRus()
+        {
+            Language = new System.Globalization.CultureInfo("ru-RU");
+        }
+        public void ChangeLangEng()
+        {
+            Language = new System.Globalization.CultureInfo("en-US");
+
+        }
+        public GeneralCommand ChangeLangRusCommand { get; set; }
+        public GeneralCommand ChangeLangEngCommand { get; set; }
+
         
        
     
@@ -153,24 +165,21 @@ namespace Course.ViewModel
         
         
 
-        private void DataGrid_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
-        {
-            //IsChange = true;
-        }
+     
     
         
         public EditStudentsViewModel()
         {
 
-            InitializeCollections();
+         
             ConnectCommands();
             CreateTable();
               
             StudentsType = new Collection<string>
                                     { 
-                                        "Все",
-                                        "Отличники", 
-                                        "Неотличники", 
+                                        "All",
+                                        "Excellent", 
+                                        "Bad", 
                                     };
             SelectedType = StudentsType.First();
 
@@ -185,21 +194,11 @@ namespace Course.ViewModel
             SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
             DeleteFromGridCommand = new GeneralCommand(DeleteFromGrid,null);
             AddNewCommand = new GeneralCommand(AddNew, null);
+            ChangeLangEngCommand = new GeneralCommand(ChangeLangEng, null);
+            ChangeLangRusCommand = new GeneralCommand(ChangeLangRus, null);
             }
         
-        public void InitializeCollections()
-        {
-            Facultys = new ObservableCollection<string>
-            {
-               "ФИТ",
-               "ПиМ",
-               "ИЭФ",
-               "ХТиТ",
-               "ЛХ",
-               "ТОВ"
-            };
-            
-        }
+       
         private void CreateTable()
         {
             var JoinedTable = (sqlcon.DBase.Студенты.Join(sqlcon.DBase.УСПЕВАЕМОСТЬ, p => p.Номер_студенческого_билета, c => c.Номер_студенческого_билета,
@@ -212,7 +211,7 @@ namespace Course.ViewModel
                 Курс = p.Курс,
                 Группа = p.Группа,
                 Пропусков = c.Количество_пропусков_за_всё_время,
-                Средняя_оценка = c.Средняя_оценка_за_всё_время
+                Средняя_оценка = c.Средняя_оценка_за_поледнюю_сессию
             })).ToList();
 
             mainlist = new List<Student>(JoinedTable.Count);
@@ -268,11 +267,7 @@ namespace Course.ViewModel
                RefreshDatabase();
            }
         }
-        private void AddToTable()
-        {
-            Студенты sk = new Студенты();
-            
-        }
+      
         
         public void Back()
         {
@@ -323,11 +318,11 @@ namespace Course.ViewModel
                     return;
                 }
 
-                if (selectedType == "Все")
+                if (selectedType == "All")
                     buf = (from g in buf select g).ToList();
-                if (selectedType == "Отличники")
+                if (selectedType == "Excellent")
                     buf = (from g in buf where g.Средняя_оценка_за_всё_время >= 8 select g).ToList();
-                if (selectedType == "Неотличники")
+                if (selectedType == "Bad")
                     buf = (from g in buf where g.Средняя_оценка_за_всё_время <= 5 select g).ToList();
                 // Logic for saving to database
             }

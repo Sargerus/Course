@@ -12,6 +12,17 @@ namespace Course.ViewModel
 {
     public class SearchTeachersViewModel : ViewModelBase
     {
+        public void ChangeLangRus()
+        {
+            Language = new System.Globalization.CultureInfo("ru-RU");
+        }
+        public void ChangeLangEng()
+        {
+            Language = new System.Globalization.CultureInfo("en-US");
+
+        }
+        public GeneralCommand ChangeLangRusCommand { get; set; }
+        public GeneralCommand ChangeLangEngCommand { get; set; }
         public class Teachers
         {
             public string Номер_трудовой_книжки { get; set; }
@@ -20,8 +31,13 @@ namespace Course.ViewModel
             public string Кабинет { get; set; }
             public string Предметы { get; set; }
 
+
+            public Teachers()
+            {
+
+            }
             public Teachers(string number, string fio,
-                          string pulpit, string cabinet, string subjects)
+                           string pulpit, string cabinet, string subjects)
             {
                 Номер_трудовой_книжки = number;
                 Фамилия_И_О_ = fio;
@@ -57,7 +73,15 @@ namespace Course.ViewModel
                 }
 
                 if (booknumber != string.Empty && booknumber != null)
+                {
+                    List<Teachers> k = new List<Teachers>();
+                    foreach (var g in buf)
+                        if (g.Номер_трудовой_книжки != null)
+                            k.Add(g);
+
+                    buf = k;
                     buf = (from g in buf where g.Номер_трудовой_книжки.Contains(value) select g).ToList();
+                }
                 else return;
             }
         }
@@ -75,7 +99,15 @@ namespace Course.ViewModel
                 }
 
                 if (lname != string.Empty && lname != null)
+                {
+                    List<Teachers> k = new List<Teachers>();
+                       foreach (var g in buf)
+                        if (g.Номер_трудовой_книжки != null)
+                            k.Add(g);
+
+                       buf = k;
                     buf = (from g in buf where g.Фамилия_И_О_.Contains(value) select g).ToList();
+                }
                 else return;
             }
         }
@@ -103,21 +135,46 @@ namespace Course.ViewModel
             SaveCommand = new GeneralCommand(Save, null);
             SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
             BackCommand = new GeneralCommand(Back, null);
+            ChangeLangEngCommand = new GeneralCommand(ChangeLangEng, null);
+            ChangeLangRusCommand = new GeneralCommand(ChangeLangRus, null);
         }
         private void CreateTable()
         {
-            List<Преподаватели> buffer = (sqlcon.GetTeachers()).ToList();
+            var table = (from a in sqlcon.DBase.Преподаватели
+                         from b in a.Предметы
+                         join c in sqlcon.DBase.Предметы on b.Название_предмета equals c.Название_предмета
+                         select new
+                         {
+                             Numb = a.Номер_трудовой_книжки,
+                             Fam = a.Фамилия_И_О_,
+                             Kaf = a.Кафедра,
+                             Kab = a.Кабинет,
+                             Naz = c.Название_предмета
+                         }).ToList();
 
+            mainlist = new List<Teachers>(table.Count());
 
-
-            mainlist = new List<Teachers>(buffer.Count);
             int k = 0;
-            while (k < buffer.Count)
+            mainlist.Add(new Teachers(table[k].Numb, table[k].Fam,
+                                       table[k].Kaf, table[k].Kab, table[k].Naz));
+            k++;
+
+            var z = table[0];
+            while (k < table.Count())
             {
-                //mainlist.Add(new Teachers(buffer[k].Номер_трудовой_книжки, buffer[k].Фамилия_И_О_,
-                //                          buffer[k].Кафедра, buffer[k].Кабинет, buffer[k].Предметы));
+                if (table[k].Fam.Equals(z.Fam))
+                    mainlist.Add(new Teachers(null, null,
+                                             null, null, table[k].Naz));
+                else
+                {
+                    mainlist.Add(new Teachers(table[k].Numb, table[k].Fam,
+                                       table[k].Kaf, table[k].Kab, table[k].Naz));
+                    z = table[k];
+                }
                 k++;
-            }
+                
+            }           
+            
         }
         public void Back()
         {

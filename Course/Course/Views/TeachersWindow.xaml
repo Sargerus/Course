@@ -14,11 +14,18 @@
 
         <Menu>
             <MenuItem Header="{DynamicResource m_Save}" StaysOpenOnClick="True">
-                <MenuItem Header="{DynamicResource m_Save}" Command="{Binding SaveCommand}"></MenuItem>
+                <MenuItem Header="{DynamicResource m_Save}" ></MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource m_Search}" StaysOpenOnClick="True">
                 <MenuItem Header="{DynamicResource m_Students}" Command="{Binding SearchStudentsCommand}"></MenuItem>
                 <MenuItem Header="{DynamicResource m_Teachers}" Command="{Binding SearchTeachersCommand}"></MenuItem>
+            </MenuItem>
+
+            <MenuItem Header="{DynamicResource m_Tools}">
+                <MenuItem Header="{DynamicResource m_ChangeLang}">
+                    <MenuItem Header="Russian" Command="{Binding ChangeLangRusCommand}"></MenuItem>
+                    <MenuItem Header="English" Command="{Binding ChangeLangEngCommand}"></MenuItem>
+                </MenuItem>
             </MenuItem>
         </Menu>
 

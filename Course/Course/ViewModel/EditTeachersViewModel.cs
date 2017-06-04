@@ -12,10 +12,6 @@ namespace Course.ViewModel
     public class EditTeachersViewModel : ViewModelBase
     {
 
-       
-    
-
-
         private string lname;
         private string trudnumber;
 
@@ -42,6 +38,7 @@ namespace Course.ViewModel
                 Предметы              = subjects;
             }
 
+
             public override string ToString()
             {
                 return " Номер трудовой книжки: " + Номер_трудовой_книжки + "\r\n" +
@@ -51,6 +48,18 @@ namespace Course.ViewModel
                  "Предметы: " + Предметы + "\r\n";
             }
         }
+        public void ChangeLangRus()
+        {
+            Language = new System.Globalization.CultureInfo("ru-RU");
+        }
+        public void ChangeLangEng()
+        {
+            Language = new System.Globalization.CultureInfo("en-US");
+
+        }
+        public GeneralCommand ChangeLangRusCommand { get; set; }
+        public GeneralCommand ChangeLangEngCommand { get; set; }
+          
         List<Teachers> buf;
 
         private List<Teachers> Total { get; set; }
@@ -79,7 +88,17 @@ namespace Course.ViewModel
                 }
 
                 if (lname != string.Empty && lname != null)
+                {
+
+                    List<Teachers> k = new List<Teachers>();
+                    foreach (var g in buf)
+                        if (g.Номер_трудовой_книжки != null)
+                            k.Add(g);
+
+                    buf = k;
+
                     buf = (from g in buf where g.Фамилия_И_О_.Contains(value) select g).ToList();
+                }
                 else return;
             }
         }
@@ -97,7 +116,15 @@ namespace Course.ViewModel
                 }
 
                 if (trudnumber != string.Empty && trudnumber != null)
+                {
+                    List<Teachers> k = new List<Teachers>();
+                    foreach (var g in buf)
+                        if (g.Номер_трудовой_книжки != null)
+                            k.Add(g);
+
+                    buf = k;
                     buf = (from g in buf where g.Номер_трудовой_книжки.Contains(value) select g).ToList();
+                }
                 else return;
             }
         }
@@ -111,6 +138,7 @@ namespace Course.ViewModel
             Total = new List<Teachers>(mainlist.Count);
             Total = mainlist;
         }
+
 
 
         public void Save()
@@ -187,11 +215,18 @@ namespace Course.ViewModel
                                        table[k].Kaf, table[k].Kab, table[k].Naz));
             k++;
 
+            var z = table[0];
             while (k < table.Count())
             {
-                if (table[k - 1].Fam.Equals(table[k].Fam))
+                if (table[k].Fam.Equals(z.Fam))
                     mainlist.Add(new Teachers(null, null,
                                              null, null, table[k].Naz));
+                else
+                {
+                    mainlist.Add(new Teachers(table[k].Numb, table[k].Fam,
+                                       table[k].Kaf, table[k].Kab, table[k].Naz));
+                    z = table[k];
+                }
                 k++;
             }           
         }
@@ -203,6 +238,8 @@ namespace Course.ViewModel
             SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
             SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
             AddNewCommand = new GeneralCommand(AddNew, null);
+            ChangeLangEngCommand = new GeneralCommand(ChangeLangEng, null);
+            ChangeLangRusCommand = new GeneralCommand(ChangeLangRus, null);
         }
 
         public void AddNew()

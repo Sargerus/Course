@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="UserName" />
@@ -24,19 +24,15 @@
           <Property Name="Дата_отработки" Type="date" />
           <Property Name="Преподаватель" Type="nvarchar" MaxLength="30" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "ForCursovoi(laba#2).dbo.Оценки" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="Оценки">
           <Key>
-            <PropertyRef Name="Номер_студенческого_билета" />
-            <PropertyRef Name="Название_предмета" />
-            <PropertyRef Name="Оценка" />
-            <PropertyRef Name="Дата_выставления" />
+            <PropertyRef Name="ID" />
           </Key>
           <Property Name="Номер_студенческого_билета" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Название_предмета" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Оценка" Type="float" Nullable="false" />
           <Property Name="Дата_выставления" Type="date" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Предметы">
           <Key>
@@ -79,11 +75,11 @@
             <PropertyRef Name="Номер_студенческого_билета" />
           </Key>
           <Property Name="Номер_студенческого_билета" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="Средняя_оценка_за_всё_время" Type="float" />
-          <Property Name="Средняя_оценка_за_поледнюю_сессию" Type="float" />
-          <Property Name="Количество_пересдач_за_всё_время" Type="smallint" />
-          <Property Name="Количество_пропусков_за_всё_время" Type="smallint" />
-          <Property Name="Средняя_оценка_за_промежуточную_аттестацию" Type="float" />
+          <Property Name="Фамилия" Type="nvarchar" MaxLength="50" />
+          <Property Name="Средняя_оценка_за_поледнюю_сессию" Type="float" Nullable="false" />
+          <Property Name="Количество_пересдач_за_всё_время" Type="smallint" Nullable="false" />
+          <Property Name="Количество_пропусков_за_всё_время" Type="smallint" Nullable="false" />
+          <Property Name="Средняя_оценка_за_промежуточную_аттестацию" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="Факультеты">
           <Key>
@@ -167,20 +163,13 @@
         <EntityContainer Name="Хранилище ModelContainer">
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Отработки" EntityType="Self.Отработки" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Оценки" EntityType="Self.Оценки" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Предметы" EntityType="Self.Предметы" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Предметы_Преподаватели" EntityType="Self.Предметы_Преподаватели" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Преподаватели" EntityType="Self.Преподаватели" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Студенты" EntityType="Self.Студенты" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="УСПЕВАЕМОСТЬ" EntityType="Self.УСПЕВАЕМОСТЬ" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Факультеты" EntityType="Self.Факультеты" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Оценки" EntityType="Self.Оценки" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Оценки].[Номер_студенческого_билета] AS [Номер_студенческого_билета], 
-    [Оценки].[Название_предмета] AS [Название_предмета], 
-    [Оценки].[Оценка] AS [Оценка], 
-    [Оценки].[Дата_выставления] AS [Дата_выставления]
-    FROM [dbo].[Оценки] AS [Оценки]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK__Студенты__Факуль__6754599E" Association="Self.FK__Студенты__Факуль__6754599E">
             <End Role="Факультеты" EntitySet="Факультеты" />
             <End Role="Студенты" EntitySet="Студенты" />
@@ -206,8 +195,7 @@
             <End Role="УСПЕВАЕМОСТЬ" EntitySet="УСПЕВАЕМОСТЬ" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -271,12 +259,12 @@
             <PropertyRef Name="Номер_студенческого_билета" />
           </Key>
           <Property Name="Номер_студенческого_билета" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Средняя_оценка_за_всё_время" Type="Double" />
-          <Property Name="Средняя_оценка_за_поледнюю_сессию" Type="Double" />
-          <Property Name="Количество_пересдач_за_всё_время" Type="Int16" />
-          <Property Name="Количество_пропусков_за_всё_время" Type="Int16" />
-          <Property Name="Средняя_оценка_за_промежуточную_аттестацию" Type="Double" />
+          <Property Name="Средняя_оценка_за_поледнюю_сессию" Type="Double" Nullable="false" />
+          <Property Name="Количество_пересдач_за_всё_время" Type="Int16" Nullable="false" />
+          <Property Name="Количество_пропусков_за_всё_время" Type="Int16" Nullable="false" />
+          <Property Name="Средняя_оценка_за_промежуточную_аттестацию" Type="Double" Nullable="false" />
           <NavigationProperty Name="Студенты" Relationship="Self.FK_УСПЕВАЕМОСТЬ_Студенты" FromRole="УСПЕВАЕМОСТЬ" ToRole="Студенты" />
+          <Property Name="Фамилия" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Факультеты">
           <Key>
@@ -285,18 +273,6 @@
           <Property Name="Название_факультета" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Деканат" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Студенты" Relationship="Self.FK__Студенты__Факуль__6754599E" FromRole="Факультеты" ToRole="Студенты" />
-        </EntityType>
-        <EntityType Name="Оценки">
-          <Key>
-            <PropertyRef Name="Номер_студенческого_билета" />
-            <PropertyRef Name="Название_предмета" />
-            <PropertyRef Name="Оценка" />
-            <PropertyRef Name="Дата_выставления" />
-          </Key>
-          <Property Name="Номер_студенческого_билета" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Название_предмета" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Оценка" Type="Double" Nullable="false" />
-          <Property Name="Дата_выставления" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <Association Name="FK_Отработки_Преподаватели">
           <End Role="Преподаватели" Type="Self.Преподаватели" Multiplicity="0..1" />
@@ -358,7 +334,6 @@
           <EntitySet Name="Студенты" EntityType="Self.Студенты" />
           <EntitySet Name="УСПЕВАЕМОСТЬ" EntityType="Self.УСПЕВАЕМОСТЬ" />
           <EntitySet Name="Факультеты" EntityType="Self.Факультеты" />
-          <EntitySet Name="Оценки" EntityType="Self.Оценки" />
           <AssociationSet Name="FK_Отработки_Преподаватели" Association="Self.FK_Отработки_Преподаватели">
             <End Role="Преподаватели" EntitySet="Преподаватели" />
             <End Role="Отработки" EntitySet="Отработки" />
@@ -379,7 +354,18 @@
             <End Role="Предметы" EntitySet="Предметы" />
             <End Role="Преподаватели" EntitySet="Преподаватели" />
           </AssociationSet>
+          <EntitySet Name="Оценки" EntityType="Model.Оценки" />
         </EntityContainer>
+        <EntityType Name="Оценки">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="Номер_студенческого_билета" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Название_предмета" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Оценка" Type="Double" Nullable="false" />
+          <Property Name="Дата_выставления" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -441,8 +427,8 @@
           <EntitySetMapping Name="УСПЕВАЕМОСТЬ">
             <EntityTypeMapping TypeName="Model.УСПЕВАЕМОСТЬ">
               <MappingFragment StoreEntitySet="УСПЕВАЕМОСТЬ">
+                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
                 <ScalarProperty Name="Номер_студенческого_билета" ColumnName="Номер_студенческого_билета" />
-                <ScalarProperty Name="Средняя_оценка_за_всё_время" ColumnName="Средняя_оценка_за_всё_время" />
                 <ScalarProperty Name="Средняя_оценка_за_поледнюю_сессию" ColumnName="Средняя_оценка_за_поледнюю_сессию" />
                 <ScalarProperty Name="Количество_пересдач_за_всё_время" ColumnName="Количество_пересдач_за_всё_время" />
                 <ScalarProperty Name="Количество_пропусков_за_всё_время" ColumnName="Количество_пропусков_за_всё_время" />
@@ -458,16 +444,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Оценки">
-            <EntityTypeMapping TypeName="Model.Оценки">
-              <MappingFragment StoreEntitySet="Оценки">
-                <ScalarProperty Name="Номер_студенческого_билета" ColumnName="Номер_студенческого_билета" />
-                <ScalarProperty Name="Название_предмета" ColumnName="Название_предмета" />
-                <ScalarProperty Name="Оценка" ColumnName="Оценка" />
-                <ScalarProperty Name="Дата_выставления" ColumnName="Дата_выставления" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <AssociationSetMapping Name="Предметы_Преподаватели" TypeName="Model.Предметы_Преподаватели" StoreEntitySet="Предметы_Преподаватели">
             <EndProperty Name="Предметы">
               <ScalarProperty Name="Название_предмета" ColumnName="Название_предмета" />
@@ -476,6 +452,17 @@
               <ScalarProperty Name="Номер_трудовой_книжки" ColumnName="Номер_трудовой_книжки" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Оценки">
+            <EntityTypeMapping TypeName="Model.Оценки">
+              <MappingFragment StoreEntitySet="Оценки">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Дата_выставления" ColumnName="Дата_выставления" />
+                <ScalarProperty Name="Оценка" ColumnName="Оценка" />
+                <ScalarProperty Name="Название_предмета" ColumnName="Название_предмета" />
+                <ScalarProperty Name="Номер_студенческого_билета" ColumnName="Номер_студенческого_билета" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

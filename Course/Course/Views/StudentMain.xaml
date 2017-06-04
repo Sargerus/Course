@@ -23,7 +23,7 @@
 
         <Menu>
             <MenuItem Header="{DynamicResource m_Save}" StaysOpenOnClick="True">
-                <MenuItem Header="{DynamicResource m_Save}" Command="{Binding SaveCommand}"></MenuItem>
+                <MenuItem Header="{DynamicResource m_Save}" ></MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource m_Search}" StaysOpenOnClick="True">
                 <MenuItem Header="{DynamicResource m_Students}" Command="{Binding SearchStudentsCommand}"></MenuItem>

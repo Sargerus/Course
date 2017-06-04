@@ -15,11 +15,11 @@ namespace Course.Model
     public partial class УСПЕВАЕМОСТЬ
     {
         public string Номер_студенческого_билета { get; set; }
-        public Nullable<double> Средняя_оценка_за_всё_время { get; set; }
-        public Nullable<double> Средняя_оценка_за_поледнюю_сессию { get; set; }
-        public Nullable<short> Количество_пересдач_за_всё_время { get; set; }
-        public Nullable<short> Количество_пропусков_за_всё_время { get; set; }
-        public Nullable<double> Средняя_оценка_за_промежуточную_аттестацию { get; set; }
+        public double Средняя_оценка_за_поледнюю_сессию { get; set; }
+        public short Количество_пересдач_за_всё_время { get; set; }
+        public short Количество_пропусков_за_всё_время { get; set; }
+        public double Средняя_оценка_за_промежуточную_аттестацию { get; set; }
+        public string Фамилия { get; set; }
     
         public virtual Студенты Студенты { get; set; }
     }

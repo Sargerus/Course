@@ -13,6 +13,17 @@ namespace Course.ViewModel
 
     public class TeacherWindowViewModel : ViewModelBase
     {
+        public void ChangeLangRus()
+        {
+            Language = new System.Globalization.CultureInfo("ru-RU");
+        }
+        public void ChangeLangEng()
+        {
+            Language = new System.Globalization.CultureInfo("en-US");
+
+        }
+        public GeneralCommand ChangeLangRusCommand { get; set; }
+        public GeneralCommand ChangeLangEngCommand { get; set; }
         public class Teachers
         {
             public string Номер_трудовой_книжки { get; set; }
@@ -69,6 +80,8 @@ namespace Course.ViewModel
             SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
             SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
             SaveCommand = new GeneralCommand(Save, null);
+            ChangeLangEngCommand = new GeneralCommand(ChangeLangEng, null);
+            ChangeLangRusCommand = new GeneralCommand(ChangeLangRus, null);
         }
         public void Save()
         {
@@ -174,11 +187,19 @@ namespace Course.ViewModel
                                          table[k].Kaf, table[k].Kab, table[k].Naz));
               k++;
 
+              var z = table[0];
             while (k < table.Count())
             {
-                if(table[k-1].Fam.Equals(table[k].Fam))
-                teachers.Add(new Teachers(null, null,
-                                         null, null, table[k].Naz));
+                if (table[k].Fam.Equals(z.Fam))
+                    teachers.Add(new Teachers(null, null,
+                                             null, null, table[k].Naz));
+                else
+                {
+                    teachers.Add(new Teachers(table[k].Numb, table[k].Fam,
+                                       table[k].Kaf, table[k].Kab, table[k].Naz));
+                    z = table[k];
+                }
+              
                 k++;
             }
    

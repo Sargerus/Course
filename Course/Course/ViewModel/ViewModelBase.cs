@@ -28,10 +28,10 @@ namespace Course.ViewModel
                 if (value == null) throw new ArgumentNullException("value");
                 if (value == System.Threading.Thread.CurrentThread.CurrentUICulture) return;
 
-                //1. Меняем язык приложения:
+                
                 System.Threading.Thread.CurrentThread.CurrentUICulture = value;
 
-                //2. Создаём ResourceDictionary для новой культуры
+                
                 ResourceDictionary dict = new ResourceDictionary();
                 switch (value.Name)
                 {
@@ -43,7 +43,7 @@ namespace Course.ViewModel
                         break;
                 }
 
-                //3. Находим старую ResourceDictionary и удаляем его и добавляем новую ResourceDictionary
+               
                 ResourceDictionary oldDict = (from d in Application.Current.Resources.MergedDictionaries
                                               where d.Source != null && d.Source.OriginalString.StartsWith("Resources/lang.")
                                               select d).First();

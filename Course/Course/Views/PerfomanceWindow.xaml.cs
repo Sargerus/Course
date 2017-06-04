@@ -1,4 +1,5 @@
-﻿using Course.ViewModel;
+﻿using Course.Model;
+using Course.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace Course.Views
         {
             DataContext = new PerfomanceViewModel();
             InitializeComponent();
+
+          
         }
     }
 }

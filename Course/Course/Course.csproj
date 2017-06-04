@@ -108,20 +108,24 @@
     <Compile Include="Model\Факультеты.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\AddMarkViewModel.cs" />
     <Compile Include="ViewModel\AddStudentWindowViewModel.cs" />
     <Compile Include="ViewModel\AddTeacherWindowViewModel.cs" />
     <Compile Include="ViewModel\AttestationWindowViewModel.cs" />
     <Compile Include="ViewModel\EditStudentsViewModel.cs" />
     <Compile Include="ViewModel\EditTeachersViewModel.cs" />
-    <Compile Include="ViewModel\GeneralCommand.cs" />
+    <Compile Include="Model\GeneralCommand.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\PerfomanceViewModel.cs" />
-    <Compile Include="ViewModel\RadioBoolToIntConverter.cs" />
+    <Compile Include="Model\RadioBoolToIntConverter.cs" />
     <Compile Include="ViewModel\SearchStudentsViewModel.cs" />
     <Compile Include="ViewModel\SearchTeachersViewModel.cs" />
     <Compile Include="ViewModel\StudentWindowViewModel.cs" />
     <Compile Include="ViewModel\TeacherWindowViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="Views\AddMarkWindow.xaml.cs">
+      <DependentUpon>AddMarkWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddStudentWindow.xaml.cs">
       <DependentUpon>AddStudentWindow.xaml</DependentUpon>
     </Compile>
@@ -195,6 +199,10 @@
     <Page Include="Resources\TextBoxStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AddMarkWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddStudentWindow.xaml">
       <SubType>Designer</SubType>

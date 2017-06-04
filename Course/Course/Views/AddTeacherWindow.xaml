@@ -1,18 +1,18 @@
 ﻿<Window x:Class="Course.Views.AddTeacherWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="AddTeacherWindow" Height="300" Width="300">
+        Title="{DynamicResource m_NewTeacher}" Height="300" Width="300">
     <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="255" Height="220" >
-            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="WorkNumber" Width="Auto" Height="Auto"></Label>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="255" Height="Auto" >
+            <Label HorizontalAlignment="Left" Margin="5,-15,0,0" Content="{DynamicResource m_WorkNumb}" Width="Auto" Height="Auto"></Label>
             <TextBox Text="{Binding addworknumb}" Width="150" Margin="90,-20,0,0"></TextBox>
-            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="Fio" Width="Auto" Height="Auto"></Label>
+            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="{DynamicResource m_Surname}" Width="Auto" Height="Auto"></Label>
             <TextBox Text="{Binding addfio}" Width="150" Margin="90,-20,0,0"></TextBox>
-            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="Kaf" Width="Auto" Height="Auto"></Label>
+            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="{DynamicResource m_Pulpit}" Width="Auto" Height="Auto"></Label>
             <TextBox Text="{Binding addkaf}" Width="150" Margin="90,-20,0,0"></TextBox>
-            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="Kab" Width="Auto" Height="Auto"></Label>
+            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="{DynamicResource m_Cabinet}" Width="Auto" Height="Auto"></Label>
             <TextBox Text="{Binding addkab}" Width="150" Margin="90,-20,0,0"></TextBox>
-            <Button Content="Add" Command="{Binding AddTeacherCommand}" Margin="50"></Button>
+            <Button Content="{DynamicResource m_Confirmed}" Command="{Binding AddTeacherCommand}" Margin="5" Height="Auto"></Button>
 
         </StackPanel>
 

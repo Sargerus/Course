@@ -14,17 +14,34 @@
     <v:String x:Key="m_Search">Поиск</v:String>
     <v:String x:Key="m_Tools">Настройки</v:String>
     <v:String x:Key="m_ChangeLang">Сменить язык</v:String>
-    <v:String x:Key="m_EditTeach">Преподаватели</v:String>
-    <v:String x:Key="m_EditStud">Студенты</v:String>
+    <v:String x:Key="m_EditTeach">Ред.преподавателей</v:String>
+    <v:String x:Key="m_EditStud">Ред.студентов</v:String>
     <v:String x:Key="m_Att">Аттестация</v:String>
     <v:String x:Key="m_Surname">Фамилия</v:String>
     <v:String x:Key="m_StudNumb">Cтудбилет</v:String>
     <v:String x:Key="m_MissLess">Пропуски меньше:</v:String>
     <v:String x:Key="m_ByMarks">По оценкам</v:String>
     <v:String x:Key="m_Back">Вернуться</v:String>
-    <v:String x:Key="m_WorkNumb">Номер трудовой книжки</v:String>
+    <v:String x:Key="m_WorkNumb">Труд.книжка</v:String>
     <v:String x:Key="m_Faculty">Факультет</v:String>
     <v:String x:Key="m_Course">Курс</v:String>
     <v:String x:Key="m_Group">Группа</v:String>
     <v:String x:Key="m_Clear">Очистить</v:String>
+    <v:String x:Key="m_New">+Добавить</v:String>
+    <v:String x:Key="m_Confirmed">Подтвердить</v:String>
+    <v:String x:Key="m_NewStudent">Добавление нового студента</v:String>
+    <v:String x:Key="m_NewTeacher">Добавление нового преподавателя</v:String>
+    <v:String x:Key="m_Attestation">Аттестация</v:String>
+    <v:String x:Key="m_EditStudW">Редактирование таблицы студентов</v:String>
+    <v:String x:Key="m_EditTeachW">Редактирование таблицв преподавателей</v:String>
+    <v:String x:Key="m_SearchStud">Поиск студентов</v:String>
+    <v:String x:Key="m_SearchTeach">Поиск преподавателей</v:String>
+    <v:String x:Key="m_SubGroup">Подгруппа</v:String>
+    <v:String x:Key="m_Proffesion">Специальность</v:String>
+    <v:String x:Key="m_Pulpit">Кафедра</v:String>
+    <v:String x:Key="m_Cabinet">Кабинет</v:String>
+    
+
+
+
 </ResourceDictionary>

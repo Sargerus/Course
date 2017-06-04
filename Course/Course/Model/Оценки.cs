@@ -18,5 +18,6 @@ namespace Course.Model
         public string Название_предмета { get; set; }
         public double Оценка { get; set; }
         public System.DateTime Дата_выставления { get; set; }
+        public int ID { get; set; }
     }
 }
