@@ -44,7 +44,7 @@
             <Button x:Name="Searchb" Content="{DynamicResource m_Search}" Command="{Binding BeginAttCommand}" Margin="-60,15,0,0" Width="80" Height="25"/>
             <Button x:Name="Clearb" Content="{DynamicResource m_Clear}" Command="{Binding ClearCommand}" Margin="110,-25,0,0" Width="80" Height="25"/>
             <Button Content="{DynamicResource m_Back}" Command="{Binding BackCommand}" HorizontalAlignment="Left" Width="150" Height="50" Margin="75,10,0,0"/>
-            <Button Content="{DynamicResource m_Back}" Command="{Binding AddMarkCommand}" HorizontalAlignment="Left" Width="150" Height="50" Margin="75,10,0,0"/>
+            <Button x:Name="NotForUsers" Content="{DynamicResource m_New}" Command="{Binding AddMarkCommand}" HorizontalAlignment="Left" Width="150" Height="50" Margin="75,10,0,0"/>
 
 
         </StackPanel>

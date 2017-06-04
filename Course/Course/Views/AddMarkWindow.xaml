@@ -1,0 +1,25 @@
+﻿<Window x:Class="Course.Views.AddMarkWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{DynamicResource m_WinMark}" Height="350" Width="300" Background="LightGray">
+    <Grid>
+
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="255" Height="Auto" >
+            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="{DynamicResource m_StudNumb}" Width="Auto" Height="Auto"></Label>
+            <TextBox Text="{Binding addstudnumb}" Width="150" Margin="90,-20,0,0"></TextBox>
+            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="{DynamicResource m_Subject}" Width="Auto" Height="Auto"></Label>
+            <TextBox Text="{Binding addsub}" Width="150" Margin="90,-20,0,0"></TextBox>
+            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="{DynamicResource m_Mark}" Width="Auto" Height="Auto"></Label>
+            <TextBox Text="{Binding addmark}" Width="150" Margin="90,-20,0,0"></TextBox>
+            <Label HorizontalAlignment="Left" Margin="5,0,0,0" Content="{DynamicResource m_Date}" Width="Auto" Height="Auto"></Label>
+            <TextBox Text="{Binding adddate}" Width="150" Margin="90,-20,0,0"></TextBox>
+            <Button Content="{DynamicResource m_Confirmed}" Command="{Binding AddStudentCommand}" Margin="5" Height="Auto"></Button>
+
+
+
+
+        </StackPanel>
+
+    </Grid>
+</Window>

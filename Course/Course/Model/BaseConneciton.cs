@@ -9,7 +9,7 @@ namespace Course.Model
 {
     public class BaseConneciton 
     {
-        private string ConnectString;
+        
 
        
     }

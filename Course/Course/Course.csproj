@@ -84,6 +84,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Model\SqlConnection.cs" />
+    <Compile Include="Model\Teachers.cs" />
     <Compile Include="Model\Users.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -110,7 +111,6 @@
     </Compile>
     <Compile Include="ViewModel\AddMarkViewModel.cs" />
     <Compile Include="ViewModel\AddStudentWindowViewModel.cs" />
-    <Compile Include="ViewModel\AddTeacherWindowViewModel.cs" />
     <Compile Include="ViewModel\AttestationWindowViewModel.cs" />
     <Compile Include="ViewModel\EditStudentsViewModel.cs" />
     <Compile Include="ViewModel\EditTeachersViewModel.cs" />
@@ -128,9 +128,6 @@
     </Compile>
     <Compile Include="Views\AddStudentWindow.xaml.cs">
       <DependentUpon>AddStudentWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AddTeacherWindow.xaml.cs">
-      <DependentUpon>AddTeacherWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AttestationWindow.xaml.cs">
       <DependentUpon>AttestationWindow.xaml</DependentUpon>
@@ -205,10 +202,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddStudentWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\AddTeacherWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

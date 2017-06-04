@@ -148,11 +148,12 @@ namespace Course.ViewModel
                 var buf = JoinedTable.Select(g => g).Where(g => g.Номер_студбилета == StudNumber).ToList();
 
                 if (buf.Count > 0)
+                {
                     mainlist.Add(new Student(buf[0].Номер_студбилета, buf[0].Фамилия, buf[0].Факультет,
                                            buf[0].Курс, buf[0].Группа, buf[0].Название_предмета, (float)buf[0].Оценка));
 
-                k++;
-
+                    k++;
+                }
                 while (k != buf.Count())
                 {
                     mainlist.Add(new Student(null, null, null,
@@ -160,6 +161,7 @@ namespace Course.ViewModel
                     k++;
 
                 }
+                return;
 
             }
             else 

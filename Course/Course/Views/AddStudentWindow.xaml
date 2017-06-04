@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Course.Views.AddStudentWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="{DynamicResource m_NewStudent}" Height="350" Width="300">
+        Title="{DynamicResource m_NewStudent}" Height="350" Width="300" Background="LightGray">
     <Grid>
 
 

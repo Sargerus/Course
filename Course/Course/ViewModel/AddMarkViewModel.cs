@@ -27,8 +27,8 @@ namespace Course.ViewModel
         }
         private void AddStudent()
         {
-           // try
-           // {
+            try
+            {
                 Оценки me = new Оценки();
                 me.Номер_студенческого_билета = addstudnumb;
                 me.Название_предмета = addsub;
@@ -38,12 +38,13 @@ namespace Course.ViewModel
                 var s = sqlcon.DBase.Set<Оценки>();
                 s.Add(me);
                 sqlcon.DBase.SaveChanges();
-           // }
-            //catch
-            //{
-             //   System.Media.SystemSounds.Exclamation.Play();
-            //    MessageBox.Show("Error in data!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-           // }
+                System.Media.SystemSounds.Asterisk.Play();
+            }
+           catch
+            {
+                System.Media.SystemSounds.Exclamation.Play();
+                MessageBox.Show("Error in data!!!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
 
 

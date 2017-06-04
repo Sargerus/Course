@@ -16,13 +16,13 @@ using System.Windows.Shapes;
 namespace Course.Views
 {
     /// <summary>
-    /// Логика взаимодействия для AddTeacherWindow.xaml
+    /// Логика взаимодействия для AddMarkWindow.xaml
     /// </summary>
-    public partial class AddTeacherWindow : Window
+    public partial class AddMarkWindow : Window
     {
-        public AddTeacherWindow()
+        public AddMarkWindow()
         {
-            DataContext = new AddTeacherWindowViewModel();
+            DataContext = new AddMarkViewModel();
             InitializeComponent();
         }
     }

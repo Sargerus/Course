@@ -1,4 +1,5 @@
-﻿using Course.Views;
+﻿using Course.Model;
+using Course.Views;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -15,39 +16,7 @@ namespace Course.ViewModel
         private string lname;
         private string trudnumber;
 
-        public class Teachers
-        {
-            public string Номер_трудовой_книжки { get; set; }
-            public string Фамилия_И_О_ { get; set; }
-            public string Кафедра { get; set; }
-            public string Кабинет { get; set; }
-            public string Предметы { get; set; }
-
-            
-            public Teachers()
-            {
-
-            }
-            public Teachers(string number, string fio,
-                           string pulpit, string cabinet, string subjects)
-            {
-                Номер_трудовой_книжки = number;
-                Фамилия_И_О_          = fio;
-                Кафедра               = pulpit;
-                Кабинет               = cabinet;
-                Предметы              = subjects;
-            }
-
-
-            public override string ToString()
-            {
-                return " Номер трудовой книжки: " + Номер_трудовой_книжки + "\r\n" +
-                 "Фамилия И О: " + Фамилия_И_О_ + "\r\n" +
-                 "Кафедра: " + Кафедра + "\r\n" +
-                 "Кабинет: " + Кабинет + "\r\n" +
-                 "Предметы: " + Предметы + "\r\n";
-            }
-        }
+       
         public void ChangeLangRus()
         {
             Language = new System.Globalization.CultureInfo("ru-RU");
@@ -64,6 +33,7 @@ namespace Course.ViewModel
 
         private List<Teachers> Total { get; set; }
         public List<Teachers> mainlist { get; set; }
+        private List<Teachers> Full { get; set; }
         
         
         public GeneralCommand BackCommand { get; set; }
@@ -72,7 +42,7 @@ namespace Course.ViewModel
         public GeneralCommand BeginSeaCommand { get; set; }
         public GeneralCommand SearchStudentsCommand { get; set; }
         public GeneralCommand SearchTeachersCommand { get; set; }
-        public GeneralCommand AddNewCommand { get; set; }       
+         
         
         public string LName
         {
@@ -132,10 +102,14 @@ namespace Course.ViewModel
 
         public EditTeachersViewModel()
         {
+            trudnumber = string.Empty;
+            lname = string.Empty;
+            Full = new List<Teachers>();
             ConnectCommands();
             CreateTable();
 
             Total = new List<Teachers>(mainlist.Count);
+           
             Total = mainlist;
         }
 
@@ -193,7 +167,23 @@ namespace Course.ViewModel
             mainlist = Total;
             OnPropertyChanged("mainlist");
         }
-
+        private void SortThis(List<Teachers> obj)
+        {
+            if (obj.Count == 0 || obj == null)
+                return;
+            var z = obj[0];
+            for (int i = 1; i < obj.Count; i++)
+            {
+                if (z.Номер_трудовой_книжки.Equals(obj[i].Номер_трудовой_книжки))
+                {
+                    obj[i].Номер_трудовой_книжки = null;
+                    obj[i].Фамилия_И_О_ = null;
+                    obj[i].Кафедра = null;
+                    obj[i].Кабинет = null;
+                }
+                else z = obj[i];
+            }
+        }
         private void CreateTable()
         {
             var table = (from a in sqlcon.DBase.Преподаватели
@@ -209,26 +199,25 @@ namespace Course.ViewModel
                          }).ToList();
 
             mainlist = new List<Teachers>(table.Count());
+            Full = new List<Teachers>(table.Count());
 
-            int k = 0;
-            mainlist.Add(new Teachers(table[k].Numb, table[k].Fam,
-                                       table[k].Kaf, table[k].Kab, table[k].Naz));
-            k++;
-
-            var z = table[0];
-            while (k < table.Count())
+            for (int k = 0; k < table.Count; k++)
             {
-                if (table[k].Fam.Equals(z.Fam))
-                    mainlist.Add(new Teachers(null, null,
-                                             null, null, table[k].Naz));
-                else
-                {
-                    mainlist.Add(new Teachers(table[k].Numb, table[k].Fam,
+                mainlist.Add(new Teachers(table[k].Numb, table[k].Fam,
                                        table[k].Kaf, table[k].Kab, table[k].Naz));
-                    z = table[k];
-                }
-                k++;
-            }           
+                Full.Add(new Teachers(table[k].Numb, table[k].Fam,
+                                       table[k].Kaf, table[k].Kab, table[k].Naz));
+            }
+
+            Sort();
+           
+        
+        }
+        private void Sort()
+        {
+            mainlist.Sort();
+            Full.Sort();
+            SortThis(mainlist);
         }
         private void ConnectCommands()
         {
@@ -237,25 +226,29 @@ namespace Course.ViewModel
             ClearCommand = new GeneralCommand(Clear, null);
             SearchStudentsCommand = new GeneralCommand(SearchStudents, null);
             SearchTeachersCommand = new GeneralCommand(SearchTeacher, null);
-            AddNewCommand = new GeneralCommand(AddNew, null);
+            
             ChangeLangEngCommand = new GeneralCommand(ChangeLangEng, null);
             ChangeLangRusCommand = new GeneralCommand(ChangeLangRus, null);
         }
-
-        public void AddNew()
+        private void Copy(List<Teachers> From, ref List<Teachers> To)
         {
-            var NewWindow = new AddTeacherWindow();
-            NewWindow.Top = Application.Current.MainWindow.Top;
-            NewWindow.Left = Application.Current.MainWindow.Left;
-            NewWindow.Show();
+            To = new List<Teachers>(From.Count);
+            
+            foreach (var g in From)
+                To.Add(g);
         }
+        
         public void RefreshDatabase()
         {
-            buf = Total;
+           
+            CreateTable();
+
+            buf = Full;
             LName = lname;
             TrudNumber = trudnumber;
 
             mainlist = buf;
+            SortThis(mainlist);
             OnPropertyChanged("mainlist");
             buf = null;
         }

@@ -24,7 +24,7 @@ namespace Course.ViewModel
         }
         public GeneralCommand ChangeLangRusCommand { get; set; }
         public GeneralCommand ChangeLangEngCommand { get; set; }
-        public class Teachers
+        public class Teachers:IComparable
         {
             public string Номер_трудовой_книжки { get; set; }
             public string Фамилия_И_О_ { get; set; }
@@ -53,6 +53,12 @@ namespace Course.ViewModel
                  "Кафедра: " + Кафедра + "\r\n" +
                  "Кабинет: " + Кабинет + "\r\n" +
                  "Предметы: " + Предметы + "\r\n";
+            }
+
+            public int CompareTo(object obj)
+            {
+                Teachers x = obj as Teachers;
+                return this.Номер_трудовой_книжки.CompareTo(x.Номер_трудовой_книжки);
             }
         }
 
@@ -182,26 +188,31 @@ namespace Course.ViewModel
 
             teachers = new List<Teachers>(table.Count());
 
-            int k = 0;
-              teachers.Add(new Teachers(table[k].Numb, table[k].Fam,
-                                         table[k].Kaf, table[k].Kab, table[k].Naz));
-              k++;
+          
 
-              var z = table[0];
-            while (k < table.Count())
-            {
-                if (table[k].Fam.Equals(z.Fam))
-                    teachers.Add(new Teachers(null, null,
-                                             null, null, table[k].Naz));
-                else
-                {
-                    teachers.Add(new Teachers(table[k].Numb, table[k].Fam,
+              for (int k = 0; k <table.Count; k++)
+              {
+                  teachers.Add(new Teachers(table[k].Numb, table[k].Fam,
                                        table[k].Kaf, table[k].Kab, table[k].Naz));
-                    z = table[k];
-                }
+              }
+              teachers.Sort();
+
+              Teachers z = teachers[0];
+              for (int i = 1; i < teachers.Count; i++)
+              {
+                  if (z.Номер_трудовой_книжки.Equals(teachers[i].Номер_трудовой_книжки))
+                  {
+                      teachers[i].Номер_трудовой_книжки = null;
+                      teachers[i].Фамилия_И_О_ = null;
+                      teachers[i].Кафедра = null;
+                      teachers[i].Кабинет = null;
+                  }
+                  else z = teachers[i];
+                  
+              }
               
-                k++;
-            }
+                
+            
    
         }
     }

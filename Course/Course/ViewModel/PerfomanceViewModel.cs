@@ -99,7 +99,7 @@ namespace Course.ViewModel
             {
                 if (StudNumber != null && StudNumber != String.Empty)
                 {
-                    if (Buffer[i].Номер_студенческого_билета == StudNumber)
+                    if (Buffer[i].Номер_студенческого_билета.Equals(StudNumber))
                         Perfomance.Add(new BufferedPerfomance(Buffer[i].Номер_студенческого_билета, Buffer[i].Фамилия,
                             Buffer[i].Средняя_оценка_за_поледнюю_сессию, Buffer[i].Количество_пересдач_за_всё_время,
                             Buffer[i].Количество_пропусков_за_всё_время, Buffer[i].Средняя_оценка_за_промежуточную_аттестацию));
